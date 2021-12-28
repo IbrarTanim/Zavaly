@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.zavaly.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="Zavaly"
         tools:layout="@layout/fragment_home" />
 
     <fragment
