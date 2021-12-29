@@ -11,7 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
+import com.google.android.material.card.MaterialCardView;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -46,7 +49,25 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        initialize();
+
         return root;
+    }
+
+    private void initialize() {
+
+        MaterialCardView allCategoriesCV = binding.allCategoriesBtn;
+
+        allCategoriesCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                NavDirections directions = HomeFragmentDirections.actionNavigationHomeToNavigationAllCategories();
+                Navigation.findNavController(view).navigate(directions);
+
+            }
+        });
+
     }
 
     private void setUpImageSlider(List<String> listImages) {

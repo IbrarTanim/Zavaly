@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.zavaly.ui.home.HomeFragment"
         android:label="Zavaly"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_all_categories"
+            app:destination="@id/navigation_all_categories" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +26,10 @@
         android:name="com.zavaly.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_all_categories"
+        android:name="com.zavaly.ui.allcategories.AllCategoriesFragment"
+        android:label="@string/navigation_all_categories"
+        tools:layout="@layout/all_categories_fragment" />
 </navigation>

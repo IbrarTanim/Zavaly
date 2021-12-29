@@ -6,8 +6,13 @@
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/activity_main.xml" value="0.24635416666666668" />
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/activity_splash.xml" value="0.35260416666666666" />
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/activity_splash_screen.xml" value="0.36666666666666664" />
-        <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/all_categories_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/fragment_notifications.xml" value="0.36666666666666664" />
+        <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/row_categories_rv.xml" value="0.36666666666666664" />
+        <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/row_home_child_rv.xml" value="0.36666666666666664" />
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/row_image_slider.xml" value="0.36666666666666664" />
+        <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

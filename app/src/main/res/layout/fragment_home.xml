@@ -14,7 +14,8 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="@dimen/one_hundred_eighty"
-            app:cardCornerRadius="@dimen/zero"
+            android:layout_margin="@dimen/seven"
+            app:cardCornerRadius="@dimen/fifteen"
             app:cardElevation="@dimen/seven">
 
             <com.smarteist.autoimageslider.SliderView
@@ -36,6 +37,165 @@
                 app:sliderStartAutoCycle="true" />
 
         </com.google.android.material.card.MaterialCardView>
+
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/ten"
+            android:paddingTop="@dimen/five"
+            android:paddingEnd="@dimen/ten"
+            android:paddingBottom="@dimen/five"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/all_categories_btn"
+                    android:layout_width="@dimen/one_hundred"
+                    android:layout_height="@dimen/one_hundred"
+                    android:layout_margin="@dimen/five"
+                    android:padding="@dimen/seven"
+                    app:cardCornerRadius="@dimen/fifteen"
+                    app:cardElevation="@dimen/twelve"
+                    app:strokeColor="@color/logo_back_color_varient"
+                    app:strokeWidth="@dimen/one">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/fourty"
+                            android:layout_height="@dimen/fourty"
+                            android:src="@drawable/categories_32" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/center_nav_all_categories"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sixteen_sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="@dimen/one_hundred"
+                    android:layout_height="@dimen/one_hundred"
+                    android:layout_margin="@dimen/five"
+                    android:padding="@dimen/seven"
+                    app:cardCornerRadius="@dimen/fifteen"
+                    app:cardElevation="@dimen/twelve"
+                    app:strokeColor="@color/logo_back_color_varient"
+                    app:strokeWidth="@dimen/one">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/fourty"
+                            android:layout_height="@dimen/fourty"
+                            android:src="@drawable/seller_32" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/center_nav_seller"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sixteen_sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="@dimen/one_hundred"
+                    android:layout_height="@dimen/one_hundred"
+                    android:layout_margin="@dimen/five"
+                    android:padding="@dimen/seven"
+                    app:cardCornerRadius="@dimen/fifteen"
+                    app:cardElevation="@dimen/twelve"
+                    app:strokeColor="@color/logo_back_color_varient"
+                    app:strokeWidth="@dimen/one">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/fourty"
+                            android:layout_height="@dimen/fourty"
+                            android:src="@drawable/bullhorn_32" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Campaign"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sixteen_sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="@dimen/one_hundred"
+                    android:layout_height="@dimen/one_hundred"
+                    android:layout_margin="@dimen/five"
+                    android:padding="@dimen/seven"
+                    app:cardCornerRadius="@dimen/fifteen"
+                    app:cardElevation="@dimen/twelve"
+                    app:strokeColor="@color/logo_back_color_varient"
+                    app:strokeWidth="@dimen/one">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/fourty"
+                            android:layout_height="@dimen/fourty"
+                            android:src="@drawable/online_shop_32" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/center_nav_i_shop"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sixteen_sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
 
     </LinearLayout>
 
