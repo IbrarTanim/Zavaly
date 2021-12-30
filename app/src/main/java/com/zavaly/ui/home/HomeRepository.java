@@ -7,9 +7,11 @@ import androidx.lifecycle.MutableLiveData;
 import com.zavaly.apiutils.ApiClient;
 import com.zavaly.apiutils.ApiInterface;
 import com.zavaly.models.CatBannerResponsePojo;
+import com.zavaly.utils.Helper;
 
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,23 +34,39 @@ public class HomeRepository {
 
         Call<CatBannerResponsePojo> pojoCall = apiInterface.getAllCatBanner();
 
-        pojoCall.enqueue(new Callback<CatBannerResponsePojo>() {
-            @Override
-            public void onResponse(Call<CatBannerResponsePojo> call, Response<CatBannerResponsePojo> response) {
+        if (Helper.isOnline(context)) {
 
-                if (response.code() == 200) {
+            Helper.showLoader(context, "");
 
-                    liveData.setValue(response.body().getBanners());
+            pojoCall.enqueue(new Callback<CatBannerResponsePojo>() {
+                @Override
+                public void onResponse(Call<CatBannerResponsePojo> call, Response<CatBannerResponsePojo> response) {
+
+                    if (response.code() == 200) {
+
+                        liveData.setValue(response.body().getBanners());
+                        Helper.cancelLoader();
+
+                    }
+
+                    Helper.cancelLoader();
 
                 }
 
-            }
+                @Override
+                public void onFailure(Call<CatBannerResponsePojo> call, Throwable t) {
 
-            @Override
-            public void onFailure(Call<CatBannerResponsePojo> call, Throwable t) {
+                    Helper.cancelLoader();
 
-            }
-        });
+                }
+            });
+
+        } else {
+
+            Toasty.warning(context, "No internet connection.").show();
+
+        }
+
 
         return liveData;
 

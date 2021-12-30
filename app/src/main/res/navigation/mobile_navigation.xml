@@ -22,14 +22,29 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.zavaly.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_account"
+        android:name="com.zavaly.ui.account.AccountFragment"
+        android:label="@string/title_account"
+        tools:layout="@layout/fragment_account">
+        <action
+            android:id="@+id/action_navigation_account_to_navigation_create_account"
+            app:destination="@id/navigation_create_account" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_all_categories"
         android:name="com.zavaly.ui.allcategories.AllCategoriesFragment"
         android:label="@string/navigation_all_categories"
         tools:layout="@layout/all_categories_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_create_account"
+        android:name="com.zavaly.ui.createaccount.CreateAccountFragment"
+        android:label="Register"
+        tools:layout="@layout/create_account_fragment">
+        <action
+            android:id="@+id/action_navigation_create_account_to_navigation_account"
+            app:destination="@id/navigation_account" />
+    </fragment>
+
 </navigation>

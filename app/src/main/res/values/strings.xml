@@ -2,7 +2,7 @@
     <string name="app_name">Zavaly</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_account">Account</string>
     <string name="nav_menu_cart">Cart</string>
     <string name="nav_menu_account">Account</string>
     <string name="center_nav_all_categories">All Categories</string>
