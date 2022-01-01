@@ -1,19 +1,24 @@
 package com.zavaly.ui.home;
 
-import androidx.lifecycle.LiveData;
+import android.content.Context;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.List;
+
 public class HomeViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private HomeRepository homeRepository;
 
-    public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+    public void viewModelInit(Context context) {
+
+        homeRepository = new HomeRepository(context);
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public MutableLiveData<List<String>> getSliders() {
+        return homeRepository.getSliders();
     }
+
+
 }

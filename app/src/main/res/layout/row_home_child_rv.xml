@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/ten"
+    app:cardCornerRadius="@dimen/twelve"
+    app:cardElevation="@dimen/seven">
+
+    <RelativeLayout
+        android:layout_width="@dimen/one_hundred_thirty"
+        android:layout_height="@dimen/two_hundred_ten">
+
+        <ImageView
+            android:id="@+id/home_child_product_iv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/one_hundred"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/home_child_product_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_child_product_iv"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/ten"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:padding="@dimen/three"
+            android:text="Chocolate"
+            android:textAlignment="center"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_child_product_name_tv"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/home_child_product_old_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500"
+                android:visibility="gone" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/two"
+                    android:layout_marginTop="@dimen/three"
+                    android:layout_marginEnd="@dimen/two"
+                    android:text="Tk."
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/home_child_product_new_price_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/three"
+                    android:textColor="@color/black" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/home_child_product_cross_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/three"
+                android:layout_marginTop="@dimen/three"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <!--<View
+                android:layout_width="@dimen/one"
+                android:layout_height="match_parent"
+                android:background="@color/color_accent"
+                android:layout_marginStart="@dimen/two"
+                android:layout_marginEnd="@dimen/two"/>-->
+
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-15dp"
+            android:layout_marginEnd="-15dp"
+            android:background="@color/black"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:id="@+id/home_child_product_discount_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_child_product_iv"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="@dimen/two"
+            android:text="50%"
+            android:textSize="10sp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
