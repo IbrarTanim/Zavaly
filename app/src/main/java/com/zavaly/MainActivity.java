@@ -14,6 +14,7 @@ import com.zavaly.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private MainActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

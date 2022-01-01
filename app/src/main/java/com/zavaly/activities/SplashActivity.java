@@ -14,10 +14,13 @@ import com.zavaly.R;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private SplashActivity activity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        activity = this;
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         ActionBar actionBar = getSupportActionBar();
@@ -25,14 +28,12 @@ public class SplashActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        Window window = this.getWindow();
+        Window window = activity.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(this.getResources().getColor(R.color.logo_back_color));
+        window.setStatusBarColor(activity.getResources().getColor(R.color.logo_back_color));
 
         setContentView(R.layout.activity_splash);
-
-
         //wait for some time and move
         delayActivity();
 
@@ -43,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent mainActivityIntent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent mainActivityIntent = new Intent(activity, MainActivity.class);
                 mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(mainActivityIntent);
