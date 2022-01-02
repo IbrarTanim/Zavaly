@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_navigation_account_to_navigation_create_account"
             app:destination="@id/navigation_create_account" />
+        <action
+            android:id="@+id/action_navigation_account_to_navigation_forget_password"
+            app:destination="@id/navigation_forget_password" />
     </fragment>
 
     <fragment
@@ -44,6 +47,17 @@
         tools:layout="@layout/create_account_fragment">
         <action
             android:id="@+id/action_navigation_create_account_to_navigation_account"
+            app:destination="@id/navigation_account" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navigation_forget_password"
+        android:name="com.zavaly.ui.forgetpassword.ForgetPasswordFragment"
+        android:label="Recover"
+        tools:layout="@layout/forget_password_fragment">
+        <action
+            android:id="@+id/action_navigation_forget_password_to_navigation_account"
             app:destination="@id/navigation_account" />
     </fragment>
 

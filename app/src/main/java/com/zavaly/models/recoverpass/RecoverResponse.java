@@ -7,13 +7,13 @@ public class RecoverResponse {
 
     @SerializedName("success")
     @Expose
-    private String success;
+    private boolean success;
 
-    public String getSuccess() {
+    public boolean getSuccess() {
         return success;
     }
 
-    public void setSuccess(String success) {
+    public void setSuccess(boolean success) {
         this.success = success;
     }
 }

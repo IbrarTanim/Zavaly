@@ -1,17 +1,17 @@
-package com.zavaly;
+package com.zavaly.activities;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.zavaly.R;
 import com.zavaly.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends CrashHandleActivity {
 
     private ActivityMainBinding binding;
     private MainActivity activity;
