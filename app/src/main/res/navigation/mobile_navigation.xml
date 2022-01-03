@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_all_categories"
             app:destination="@id/navigation_all_categories" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_view_category_products2"
+            app:destination="@id/navigation_view_category_products" />
     </fragment>
 
     <fragment
@@ -38,7 +41,11 @@
         android:id="@+id/navigation_all_categories"
         android:name="com.zavaly.ui.allcategories.AllCategoriesFragment"
         android:label="@string/navigation_all_categories"
-        tools:layout="@layout/all_categories_fragment" />
+        tools:layout="@layout/all_categories_fragment">
+        <action
+            android:id="@+id/action_navigation_all_categories_to_navigation_view_category_products"
+            app:destination="@id/navigation_view_category_products" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_create_account"
@@ -59,6 +66,20 @@
         <action
             android:id="@+id/action_navigation_forget_password_to_navigation_account"
             app:destination="@id/navigation_account" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navigation_view_category_products"
+        android:name="com.zavaly.ui.viewcategoryproduct.ViewCategoryProductFragment"
+        android:label="Products"
+        tools:layout="@layout/view_category_product_fragment">
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_navigation_view_category_products_self"
+            app:destination="@id/navigation_view_category_products" />
     </fragment>
 
 </navigation>

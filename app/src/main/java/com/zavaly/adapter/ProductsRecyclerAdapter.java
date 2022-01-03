@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zavaly.R;
+import com.zavaly.enums.ZavalyEnums;
 import com.zavaly.models.allcategorydetails.Product__1;
+import com.zavaly.models.specificcategory.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +22,15 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
 
     private Context context;
     private List<Product__1> allProductsList = new ArrayList<>();
+    private List<Product> specificProducts = new ArrayList<>();
+    private String listType;
 
 
-    public ProductsRecyclerAdapter(Context context, List<Product__1> allProductsList) {
+    public ProductsRecyclerAdapter(Context context, List<Product__1> allProductsList, List<Product> specificProducts, String listType) {
         this.context = context;
         this.allProductsList = allProductsList;
+        this.specificProducts = specificProducts;
+        this.listType = listType;
     }
 
     @NonNull
@@ -37,37 +43,41 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
     @Override
     public void onBindViewHolder(@NonNull ProductsViewHolder holder, int position) {
 
-        if (allProductsList != null) {
+        if (listType.equals(String.valueOf(ZavalyEnums.List_All_Cat))) {
 
-            holder.productNameTV.setText(allProductsList.get(position).getTitle());
+            if (allProductsList != null) {
 
-            /*try {
-                //String productImg = "http://alifmart.com.bd/" + allProductsForSingleCategoryList.get(position).getThumbnailImages().get(0).getFileName();
-                String productImg = BaseApiConstant.IMAGE_FETCH_URL + ;
-                //"https://alifmart.com.bd/"
-                Glide.with(context)
-                        .load(productImg)
-                        .fitCenter()
-                        .placeholder(context.getResources().getDrawable(R.drawable.alif_mart_logo_blue_back))
-                        .into(holder.productPhotoIV);
-            } catch (Exception ne) {
-                //To DO
-                holder.productPhotoIV.setImageDrawable(context.getResources().getDrawable(R.drawable.alif_mart_logo_blue_back));
-            }*/
+                holder.productNameTV.setText(allProductsList.get(position).getTitle());
 
-            //holder.productNewPriceTV.setText(String.valueOf(allProductsForSingleCategoryList.get(position).getUnitPrice()));
-            //holder.productDiscountTV.setText(allProductsForSingleBrandList.get(position).getDiscount());
-            //String productUnitPrice, String discountAmount, String discountType, String discountStartDate, String discountEndDate, TextView productPriceTV, TextView detailsProductCrossPrice
+                holder.productNewPriceTV.setText(allProductsList.get(position).getPrice());
 
-            holder.productNewPriceTV.setText(allProductsList.get(position).getPrice());
+            }
+
+        } else if (listType.equals(String.valueOf(ZavalyEnums.List_Solo_Cat))) {
+
+            if (specificProducts != null) {
+
+                holder.productNameTV.setText(specificProducts.get(position).getTitle());
+
+                holder.productNewPriceTV.setText(specificProducts.get(position).getPrice());
+
+            }
 
         }
+
 
     }
 
     @Override
     public int getItemCount() {
-        return allProductsList.size();
+        if (listType.equals(String.valueOf(ZavalyEnums.List_All_Cat))) {
+            return allProductsList.size();
+        } else if (listType.equals(String.valueOf(ZavalyEnums.List_Solo_Cat))) {
+            return specificProducts.size();
+        } else {
+            return 0;
+        }
+
     }
 
     static class ProductsViewHolder extends RecyclerView.ViewHolder {

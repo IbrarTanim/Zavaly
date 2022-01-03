@@ -7,6 +7,7 @@ import com.zavaly.models.login.LoginResponse;
 import com.zavaly.models.recoverpass.RecoverResponse;
 import com.zavaly.models.register.RegisterResponse;
 import com.zavaly.models.registerverify.RegisterVerifyResponse;
+import com.zavaly.models.specificcategory.SpecificCategoryResponse;
 
 import java.util.HashMap;
 
@@ -38,5 +39,8 @@ public interface ApiInterface {
 
     @GET("category")
     Call<AllCategoryDetailsResponse> getAllCategoryProducts();
+
+    @GET("category")
+    Call<SpecificCategoryResponse> getSpecificCategory(@Query("id") int categoryId);
 
 }

@@ -8,11 +8,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zavaly.R;
+import com.zavaly.enums.ZavalyEnums;
 import com.zavaly.models.allcategorydetails.Datum;
+import com.zavaly.ui.home.HomeFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +47,18 @@ public class HomeAllCategoriesRecyclerAdapter extends RecyclerView.Adapter<HomeA
 
                 holder.brandNameTV.setText(allCategoryList.get(position).getName());
 
-                ProductsRecyclerAdapter productsRecyclerAdapter = new ProductsRecyclerAdapter(context, allCategoryList.get(position).getProducts());
+                int catId = allCategoryList.get(position).getId();
+
+                holder.brandViewAllTV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationViewCategoryProducts2(catId));
+
+                    }
+                });
+
+                ProductsRecyclerAdapter productsRecyclerAdapter = new ProductsRecyclerAdapter(context, allCategoryList.get(position).getProducts(), null, String.valueOf(ZavalyEnums.List_All_Cat));
                 LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
                 holder.allBrandProductRV.setLayoutManager(manager);
                 holder.allBrandProductRV.setAdapter(productsRecyclerAdapter);

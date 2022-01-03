@@ -68,13 +68,13 @@
                         android:text="Sign In"
                         android:textAlignment="center"
                         android:textColor="@color/primary_varient"
-                        android:textSize="32sp"
+                        android:textSize="@dimen/thirty_two_sp"
                         android:textStyle="bold" />
 
 
                     <View
-                        android:layout_width="200dp"
-                        android:layout_height="1dp"
+                        android:layout_width="@dimen/two_hundred"
+                        android:layout_height="@dimen/one"
                         android:background="@color/primary_varient" />
 
 
@@ -131,7 +131,7 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/acc_sign_in_btn"
                         style="@style/ButtonStyle"
-                        android:layout_width="200dp"
+                        android:layout_width="@dimen/two_hundred"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/twenty"
                         android:layout_marginBottom="@dimen/twenty"
@@ -169,13 +169,13 @@
                         android:text="Welcome"
                         android:textAlignment="center"
                         android:textColor="@color/primary_varient"
-                        android:textSize="32sp"
+                        android:textSize="@dimen/thirty_two_sp"
                         android:textStyle="bold" />
 
 
                     <View
-                        android:layout_width="200dp"
-                        android:layout_height="1dp"
+                        android:layout_width="@dimen/two_hundred"
+                        android:layout_height="@dimen/one"
                         android:layout_gravity="center"
                         android:background="@color/primary_varient" />
 

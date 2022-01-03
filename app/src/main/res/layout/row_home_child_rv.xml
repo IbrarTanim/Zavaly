@@ -92,8 +92,8 @@
 
 
         <FrameLayout
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/fourty"
+            android:layout_height="@dimen/fourty"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="-15dp"
@@ -111,8 +111,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="@dimen/two"
-            android:text="50%"
-            android:textSize="10sp"
+            android:textSize="@dimen/ten_sp"
             android:visibility="gone" />
 
     </RelativeLayout>
