@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zavaly.R;
@@ -45,7 +45,7 @@ public class HomeAllCategoriesRecyclerAdapter extends RecyclerView.Adapter<HomeA
                 holder.brandNameTV.setText(allCategoryList.get(position).getName());
 
                 ProductsRecyclerAdapter productsRecyclerAdapter = new ProductsRecyclerAdapter(context, allCategoryList.get(position).getProducts());
-                GridLayoutManager manager = new GridLayoutManager(context, 2);
+                LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
                 holder.allBrandProductRV.setLayoutManager(manager);
                 holder.allBrandProductRV.setAdapter(productsRecyclerAdapter);
 
