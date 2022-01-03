@@ -197,6 +197,15 @@
 
         </HorizontalScrollView>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_all_products_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ten"
+            android:layout_marginTop="@dimen/twenty"
+            android:layout_marginEnd="@dimen/ten"
+            android:layout_marginBottom="@dimen/sixty" />
+
     </LinearLayout>
 
 

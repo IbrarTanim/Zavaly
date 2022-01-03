@@ -49,6 +49,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        homeViewModel.getAllProducts(binding.homeAllProductsRv);
+
         initialize();
 
         return root;

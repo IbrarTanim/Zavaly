@@ -3,10 +3,14 @@ package com.zavaly.ui.home;
 import android.content.Context;
 
 import androidx.lifecycle.MutableLiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.zavaly.adapter.HomeAllCategoriesRecyclerAdapter;
 import com.zavaly.apiutils.ApiClient;
 import com.zavaly.apiutils.ApiInterface;
 import com.zavaly.models.CatBannerResponsePojo;
+import com.zavaly.models.allcategorydetails.AllCategoryDetailsResponse;
 import com.zavaly.utils.Helper;
 
 import java.util.List;
@@ -36,7 +40,7 @@ public class HomeRepository {
 
         if (Helper.isOnline(context)) {
 
-            Helper.showLoader(context, "");
+            //Helper.showLoader(context, "");
 
             pojoCall.enqueue(new Callback<CatBannerResponsePojo>() {
                 @Override
@@ -45,18 +49,18 @@ public class HomeRepository {
                     if (response.code() == 200) {
 
                         liveData.setValue(response.body().getBanners());
-                        Helper.cancelLoader();
+                        //Helper.cancelLoader();
 
                     }
 
-                    Helper.cancelLoader();
+                    //Helper.cancelLoader();
 
                 }
 
                 @Override
                 public void onFailure(Call<CatBannerResponsePojo> call, Throwable t) {
 
-                    Helper.cancelLoader();
+                    //Helper.cancelLoader();
 
                 }
             });
@@ -69,6 +73,48 @@ public class HomeRepository {
 
 
         return liveData;
+
+    }
+
+    public void getAllProducts(RecyclerView recyclerView) {
+
+        Call<AllCategoryDetailsResponse> pojoCall = apiInterface.getAllCategoryProducts();
+
+        if (Helper.isOnline(context)) {
+
+            Helper.showLoader(context, "");
+
+            pojoCall.enqueue(new Callback<AllCategoryDetailsResponse>() {
+                @Override
+                public void onResponse(Call<AllCategoryDetailsResponse> call, Response<AllCategoryDetailsResponse> response) {
+
+                    if (response.isSuccessful()) {
+
+                        if (response.body().getSuccess()) {
+
+                            HomeAllCategoriesRecyclerAdapter adapter = new HomeAllCategoriesRecyclerAdapter(context, response.body().getCats().getData());
+                            LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+                            recyclerView.setLayoutManager(manager);
+                            recyclerView.setAdapter(adapter);
+
+
+                        }
+
+                        Helper.cancelLoader();
+
+                    }
+
+                    Helper.cancelLoader();
+
+                }
+
+                @Override
+                public void onFailure(Call<AllCategoryDetailsResponse> call, Throwable t) {
+                    Helper.cancelLoader();
+                }
+            });
+
+        }
 
     }
 }

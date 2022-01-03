@@ -2,6 +2,7 @@ package com.zavaly.apiutils;
 
 
 import com.zavaly.models.CatBannerResponsePojo;
+import com.zavaly.models.allcategorydetails.AllCategoryDetailsResponse;
 import com.zavaly.models.login.LoginResponse;
 import com.zavaly.models.recoverpass.RecoverResponse;
 import com.zavaly.models.register.RegisterResponse;
@@ -34,5 +35,8 @@ public interface ApiInterface {
 
     @POST("recover")
     Call<RecoverResponse> forgetPasswordConfirm(@QueryMap HashMap<String, String> params);
+
+    @GET("category")
+    Call<AllCategoryDetailsResponse> getAllCategoryProducts();
 
 }

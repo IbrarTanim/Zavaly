@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -20,5 +21,8 @@ public class HomeViewModel extends ViewModel {
         return homeRepository.getSliders();
     }
 
+    public void getAllProducts(RecyclerView recyclerView) {
+        homeRepository.getAllProducts(recyclerView);
+    }
 
 }
