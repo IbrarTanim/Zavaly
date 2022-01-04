@@ -3,6 +3,7 @@ package com.zavaly.ui.home;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,18 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.paging.PagedList;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.card.MaterialCardView;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
+import com.zavaly.adapter.HomeAllCategoriesRecyclerAdapter;
 import com.zavaly.adapter.ImageSliderAdapter;
 import com.zavaly.databinding.FragmentHomeBinding;
+import com.zavaly.models.allcategorydetails.Datum;
+import com.zavaly.utils.Helper;
 
 import java.util.List;
 
@@ -49,7 +55,28 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        homeViewModel.getAllProducts(binding.homeAllProductsRv);
+        //homeViewModel.getAllProducts(binding.homeAllProductsRv);
+        Helper.showLoader(context, "");
+        homeViewModel.getAllCategory(context);
+        homeViewModel.getCategoryPagedList().observe(getViewLifecycleOwner(), new Observer<PagedList<Datum>>() {
+            @Override
+            public void onChanged(PagedList<Datum> data) {
+
+                HomeAllCategoriesRecyclerAdapter adapter = new HomeAllCategoriesRecyclerAdapter(context);
+                adapter.submitList(data);
+                LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+                binding.homeAllProductsRv.setLayoutManager(manager);
+                binding.homeAllProductsRv.setAdapter(adapter);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Helper.cancelLoader();
+                    }
+                }, 2000);
+
+
+            }
+        });
 
         initialize();
 

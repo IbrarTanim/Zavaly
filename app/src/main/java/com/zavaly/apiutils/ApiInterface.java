@@ -41,6 +41,9 @@ public interface ApiInterface {
     Call<AllCategoryDetailsResponse> getAllCategoryProducts();
 
     @GET("category")
+    Call<AllCategoryDetailsResponse> getAllCategoryProducts(@Query("page") int pageNumber);
+
+    @GET("category")
     Call<SpecificCategoryResponse> getSpecificCategory(@Query("id") int categoryId);
 
 }

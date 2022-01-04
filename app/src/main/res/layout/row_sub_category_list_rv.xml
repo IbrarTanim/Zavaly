@@ -28,7 +28,9 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textAlignment="center"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/ten_sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

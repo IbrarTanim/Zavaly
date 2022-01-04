@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,17 +19,25 @@ import com.zavaly.enums.ZavalyEnums;
 import com.zavaly.models.allcategorydetails.Datum;
 import com.zavaly.ui.home.HomeFragmentDirections;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class HomeAllCategoriesRecyclerAdapter extends RecyclerView.Adapter<HomeAllCategoriesRecyclerAdapter.HomeAllCategoryViewHolder> {
+public class HomeAllCategoriesRecyclerAdapter extends PagedListAdapter<Datum, HomeAllCategoriesRecyclerAdapter.HomeAllCategoryViewHolder> {
 
     private Context context;
-    private List<Datum> allCategoryList = new ArrayList<>();
 
-    public HomeAllCategoriesRecyclerAdapter(Context context, List<Datum> allCategoryList) {
+    private static DiffUtil.ItemCallback<Datum> DIFF_CALLBACK = new DiffUtil.ItemCallback<Datum>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Datum oldItem, @NonNull Datum newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Datum oldItem, @NonNull Datum newItem) {
+            return true;
+        }
+    };
+
+    public HomeAllCategoriesRecyclerAdapter(Context context) {
+        super(DIFF_CALLBACK);
         this.context = context;
-        this.allCategoryList = allCategoryList;
     }
 
     @NonNull
@@ -40,14 +50,16 @@ public class HomeAllCategoriesRecyclerAdapter extends RecyclerView.Adapter<HomeA
     @Override
     public void onBindViewHolder(@NonNull HomeAllCategoryViewHolder holder, int position) {
 
-        if (allCategoryList != null) {
+        Datum categoryItem = getItem(position);
 
-            if (!allCategoryList.get(position).getProducts().isEmpty()) {
+        if (categoryItem != null) {
+
+            if (!categoryItem.getProducts().isEmpty()) {
 
 
-                holder.brandNameTV.setText(allCategoryList.get(position).getName());
+                holder.brandNameTV.setText(categoryItem.getName());
 
-                int catId = allCategoryList.get(position).getId();
+                int catId = categoryItem.getId();
 
                 holder.brandViewAllTV.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -58,7 +70,7 @@ public class HomeAllCategoriesRecyclerAdapter extends RecyclerView.Adapter<HomeA
                     }
                 });
 
-                ProductsRecyclerAdapter productsRecyclerAdapter = new ProductsRecyclerAdapter(context, allCategoryList.get(position).getProducts(), null, String.valueOf(ZavalyEnums.List_All_Cat));
+                ProductsRecyclerAdapter productsRecyclerAdapter = new ProductsRecyclerAdapter(context, categoryItem.getProducts(), null, String.valueOf(ZavalyEnums.List_All_Cat));
                 LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
                 holder.allBrandProductRV.setLayoutManager(manager);
                 holder.allBrandProductRV.setAdapter(productsRecyclerAdapter);
@@ -74,12 +86,17 @@ public class HomeAllCategoriesRecyclerAdapter extends RecyclerView.Adapter<HomeA
 
     }
 
-    @Override
-    public int getItemCount() {
-        return allCategoryList.size();
-    }
 
-    class HomeAllCategoryViewHolder extends RecyclerView.ViewHolder {
+
+
+    /*public void updateList(List<Datum> datumList){
+
+        allCategoryList = datumList;
+        notifyDataSetChanged();
+
+    }*/
+
+    static class HomeAllCategoryViewHolder extends RecyclerView.ViewHolder {
 
         private TextView brandNameTV;
         private TextView brandViewAllTV;

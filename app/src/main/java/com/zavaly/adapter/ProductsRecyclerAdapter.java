@@ -10,10 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.zavaly.R;
+import com.zavaly.constants.BaseApiConstant;
 import com.zavaly.enums.ZavalyEnums;
 import com.zavaly.models.allcategorydetails.Product__1;
 import com.zavaly.models.specificcategory.Product;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +56,22 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
 
                 holder.productNewPriceTV.setText(allProductsList.get(position).getPrice());
 
+                String imageNameList = allProductsList.get(position).getImage();
+                try {
+                    JSONArray jsonArray = new JSONArray(imageNameList);
+                    String imageName = jsonArray.getString(0);
+                    if (!imageName.isEmpty()) {
+
+                        String url = BaseApiConstant.IMAGE_FETCH_URL + imageName;
+                        Glide.with(context)
+                                .load(url)
+                                .into(holder.productPhotoIV);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
 
         } else if (listType.equals(String.valueOf(ZavalyEnums.List_Solo_Cat))) {
@@ -60,6 +81,22 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
                 holder.productNameTV.setText(specificProducts.get(position).getTitle());
 
                 holder.productNewPriceTV.setText(specificProducts.get(position).getPrice());
+
+                String imageNameList = specificProducts.get(position).getImage();
+                try {
+                    JSONArray jsonArray = new JSONArray(imageNameList);
+                    String imageName = jsonArray.getString(0);
+                    if (!imageName.isEmpty()) {
+
+                        String url = BaseApiConstant.IMAGE_FETCH_URL + imageName;
+                        Glide.with(context)
+                                .load(url)
+                                .into(holder.productPhotoIV);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
 

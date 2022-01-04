@@ -142,4 +142,22 @@ public class Datum {
         this.products = products;
     }
 
+
+    @Override
+    public String toString() {
+        return "Datum{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", parent='" + parent + '\'' +
+                ", commission=" + commission +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                ", forCustomer='" + forCustomer + '\'' +
+                ", forShopkeeper='" + forShopkeeper + '\'' +
+                ", protype='" + protype + '\'' +
+                ", category=" + category +
+                ", products=" + products +
+                '}';
+    }
 }

@@ -1,16 +1,21 @@
 package com.zavaly.ui.viewcategoryproduct;
 
 import android.content.Context;
+import android.view.View;
 
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zavaly.adapter.ProductsRecyclerAdapter;
+import com.zavaly.adapter.SubCategoryListAdapter;
 import com.zavaly.apiutils.ApiClient;
 import com.zavaly.apiutils.ApiInterface;
 import com.zavaly.enums.ZavalyEnums;
 import com.zavaly.models.specificcategory.SpecificCategoryResponse;
 import com.zavaly.utils.Helper;
+import com.zavaly.utils.RecyclerTouchListener;
 
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
@@ -47,6 +52,25 @@ public class ViewCategoryProductRepository {
 
                             if (response.body().getCats().getCategory() != null) {
 
+                                SubCategoryListAdapter categoryListAdapter = new SubCategoryListAdapter(context, response.body().getCats().getCategory());
+                                LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                                categoryListRV.setLayoutManager(manager);
+                                categoryListRV.setAdapter(categoryListAdapter);
+
+                                categoryListRV.addOnItemTouchListener(new RecyclerTouchListener(context, categoryListRV, new RecyclerTouchListener.ClickListener() {
+                                    @Override
+                                    public void onClick(View view, int position) {
+
+                                        int catId = response.body().getCats().getCategory().get(position).getId();
+                                        Navigation.findNavController(view).navigate(ViewCategoryProductFragmentDirections.actionNavigationViewCategoryProductsSelf(catId));
+
+                                    }
+
+                                    @Override
+                                    public void onLongClick(View view, int position) {
+
+                                    }
+                                }));
 
                             }
 
