@@ -8,8 +8,15 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.zavaly.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="Zavaly"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_all_categories"
+            app:destination="@id/navigation_all_categories" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_view_category_products2"
+            app:destination="@id/navigation_view_category_products" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -18,8 +25,61 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.zavaly.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_account"
+        android:name="com.zavaly.ui.account.AccountFragment"
+        android:label="@string/title_account"
+        tools:layout="@layout/fragment_account">
+        <action
+            android:id="@+id/action_navigation_account_to_navigation_create_account"
+            app:destination="@id/navigation_create_account" />
+        <action
+            android:id="@+id/action_navigation_account_to_navigation_forget_password"
+            app:destination="@id/navigation_forget_password" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_all_categories"
+        android:name="com.zavaly.ui.allcategories.AllCategoriesFragment"
+        android:label="@string/navigation_all_categories"
+        tools:layout="@layout/all_categories_fragment">
+        <action
+            android:id="@+id/action_navigation_all_categories_to_navigation_view_category_products"
+            app:destination="@id/navigation_view_category_products" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_create_account"
+        android:name="com.zavaly.ui.createaccount.CreateAccountFragment"
+        android:label="Register"
+        tools:layout="@layout/create_account_fragment">
+        <action
+            android:id="@+id/action_navigation_create_account_to_navigation_account"
+            app:destination="@id/navigation_account" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navigation_forget_password"
+        android:name="com.zavaly.ui.forgetpassword.ForgetPasswordFragment"
+        android:label="Recover"
+        tools:layout="@layout/forget_password_fragment">
+        <action
+            android:id="@+id/action_navigation_forget_password_to_navigation_account"
+            app:destination="@id/navigation_account" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navigation_view_category_products"
+        android:name="com.zavaly.ui.viewcategoryproduct.ViewCategoryProductFragment"
+        android:label="Products"
+        tools:layout="@layout/view_category_product_fragment">
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_navigation_view_category_products_self"
+            app:destination="@id/navigation_view_category_products" />
+    </fragment>
+
 </navigation>
