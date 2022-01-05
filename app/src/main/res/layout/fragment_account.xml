@@ -34,11 +34,14 @@
                 android:id="@+id/acc_account_image"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="40dp"
                 android:src="@drawable/zavalylogo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
+            <!--L A Y O U T  ...  O N E-->
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/login_layout"
@@ -65,13 +68,13 @@
                         android:text="Sign In"
                         android:textAlignment="center"
                         android:textColor="@color/primary_varient"
-                        android:textSize="32sp"
+                        android:textSize="@dimen/thirty_two_sp"
                         android:textStyle="bold" />
 
 
                     <View
-                        android:layout_width="200dp"
-                        android:layout_height="1dp"
+                        android:layout_width="@dimen/two_hundred"
+                        android:layout_height="@dimen/one"
                         android:background="@color/primary_varient" />
 
 
@@ -85,6 +88,7 @@
                         app:startIconTint="@color/primary_varient">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/acc_phone_edt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="phone" />
@@ -103,6 +107,7 @@
                         app:startIconTint="@color/primary_varient">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/acc_password_edt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword" />
@@ -110,9 +115,23 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/acc_forget_pass_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="@dimen/ten"
+                        android:background="?selectableItemBackground"
+                        android:text="Forget password?"
+                        android:textAllCaps="false"
+                        android:textColor="@color/primary_varient"
+                        android:textStyle="bold" />
+
+
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/acc_sign_in_btn"
                         style="@style/ButtonStyle"
-                        android:layout_width="200dp"
+                        android:layout_width="@dimen/two_hundred"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/twenty"
                         android:layout_marginBottom="@dimen/twenty"
@@ -121,6 +140,122 @@
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+
+            <!--L A Y O U T  ...  T W O-->
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/show_profile_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/twenty"
+                android:visibility="gone"
+                app:cardCornerRadius="@dimen/fifteen"
+                app:cardElevation="@dimen/twelve"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/acc_account_image">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/ten">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten"
+                        android:text="Welcome"
+                        android:textAlignment="center"
+                        android:textColor="@color/primary_varient"
+                        android:textSize="@dimen/thirty_two_sp"
+                        android:textStyle="bold" />
+
+
+                    <View
+                        android:layout_width="@dimen/two_hundred"
+                        android:layout_height="@dimen/one"
+                        android:layout_gravity="center"
+                        android:background="@color/primary_varient" />
+
+                    <LinearLayout
+                        android:id="@+id/acc_show_name_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/twenty"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/five"
+                            android:src="@drawable/person_24_colored" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/acc_show_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/five"
+                            android:text="Md. Touhidur Rahman Haji mohsin alamuddin"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sixteen_sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/acc_show_phone_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/five"
+                            android:src="@drawable/phone_24_colored" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/acc_show_phone"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/five"
+                            android:text="01681723016"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sixteen_sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/acc_show_edit_btn"
+                        style="@style/ButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/twenty"
+                        android:text="Edit Profile" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/acc_show_logout_btn"
+                        style="@style/ButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/ten"
+                        android:layout_marginBottom="@dimen/twenty"
+                        android:text="Logout" />
+
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

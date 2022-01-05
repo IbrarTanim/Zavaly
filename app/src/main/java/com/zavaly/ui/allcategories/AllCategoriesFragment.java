@@ -11,11 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.zavaly.adapter.CategoryListAdapter;
 import com.zavaly.databinding.AllCategoriesFragmentBinding;
 import com.zavaly.models.Cat;
+import com.zavaly.utils.RecyclerTouchListener;
 
 import java.util.List;
 
@@ -40,6 +42,21 @@ public class AllCategoriesFragment extends Fragment {
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3);
                 binding.allCategoriesRv.setLayoutManager(gridLayoutManager);
                 binding.allCategoriesRv.setAdapter(categoryListAdapter);
+
+                binding.allCategoriesRv.addOnItemTouchListener(new RecyclerTouchListener(context, binding.allCategoriesRv, new RecyclerTouchListener.ClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+
+                        int catId = cats.get(position).getId();
+                        Navigation.findNavController(view).navigate(AllCategoriesFragmentDirections.actionNavigationAllCategoriesToNavigationViewCategoryProducts(catId));
+
+                    }
+
+                    @Override
+                    public void onLongClick(View view, int position) {
+
+                    }
+                }));
 
             }
         });

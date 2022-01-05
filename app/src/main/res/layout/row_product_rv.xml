@@ -8,15 +8,15 @@
     app:cardElevation="@dimen/seven">
 
     <RelativeLayout
-        android:layout_width="@dimen/one_hundred_thirty"
-        android:layout_height="@dimen/two_hundred_ten">
+        android:layout_width="150dp"
+        android:layout_height="210dp">
 
         <ImageView
             android:id="@+id/home_child_product_iv"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/one_hundred"
+            android:layout_height="100dp"
             android:layout_alignParentTop="true"
-            android:scaleType="centerCrop" />
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/home_child_product_name_tv"
@@ -59,14 +59,14 @@
                     android:layout_marginTop="@dimen/three"
                     android:layout_marginEnd="@dimen/two"
                     android:text="Tk."
-                    android:textColor="@color/black" />
+                    android:textColor="@color/primary_varient" />
 
                 <TextView
                     android:id="@+id/home_child_product_new_price_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/three"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/primary_varient" />
 
 
             </LinearLayout>
@@ -78,7 +78,7 @@
                 android:layout_marginStart="@dimen/three"
                 android:layout_marginTop="@dimen/three"
                 android:gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_varient"
                 android:textSize="12sp" />
 
             <!--<View
@@ -92,13 +92,13 @@
 
 
         <FrameLayout
-            android:layout_width="@dimen/fourty"
-            android:layout_height="@dimen/fourty"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="-15dp"
             android:layout_marginEnd="-15dp"
-            android:background="@color/black"
+            android:background="@color/primary_varient"
             android:visibility="gone" />
 
 
@@ -111,7 +111,8 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="@dimen/two"
-            android:textSize="@dimen/ten_sp"
+            android:text="50%"
+            android:textSize="10sp"
             android:visibility="gone" />
 
     </RelativeLayout>
