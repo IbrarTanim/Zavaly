@@ -4,6 +4,7 @@ package com.zavaly.apiutils;
 import com.zavaly.models.CatBannerResponsePojo;
 import com.zavaly.models.allcategorydetails.AllCategoryDetailsResponse;
 import com.zavaly.models.login.LoginResponse;
+import com.zavaly.models.productdetails.ProductDetailsResponse;
 import com.zavaly.models.recoverpass.RecoverResponse;
 import com.zavaly.models.register.RegisterResponse;
 import com.zavaly.models.registerverify.RegisterVerifyResponse;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
@@ -45,5 +47,8 @@ public interface ApiInterface {
 
     @GET("category")
     Call<SpecificCategoryResponse> getSpecificCategory(@Query("id") int categoryId);
+
+    @GET("product/details/{id}")
+    Call<ProductDetailsResponse> getProductDetails(@Path("id") int productId);
 
 }

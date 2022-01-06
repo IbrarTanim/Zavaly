@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_view_category_products2"
             app:destination="@id/navigation_view_category_products" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_product_details"
+            app:destination="@id/navigation_product_details" />
     </fragment>
 
     <fragment
@@ -80,6 +83,20 @@
         <action
             android:id="@+id/action_navigation_view_category_products_self"
             app:destination="@id/navigation_view_category_products" />
+        <action
+            android:id="@+id/action_navigation_view_category_products_to_navigation_product_details"
+            app:destination="@id/navigation_product_details" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navigation_product_details"
+        android:name="com.zavaly.ui.productdetails.ProductDetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/product_details_fragment">
+        <argument
+            android:name="productId"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

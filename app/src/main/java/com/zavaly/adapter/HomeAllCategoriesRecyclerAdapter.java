@@ -18,6 +18,7 @@ import com.zavaly.R;
 import com.zavaly.enums.ZavalyEnums;
 import com.zavaly.models.allcategorydetails.Datum;
 import com.zavaly.ui.home.HomeFragmentDirections;
+import com.zavaly.utils.RecyclerTouchListener;
 
 public class HomeAllCategoriesRecyclerAdapter extends PagedListAdapter<Datum, HomeAllCategoriesRecyclerAdapter.HomeAllCategoryViewHolder> {
 
@@ -74,6 +75,21 @@ public class HomeAllCategoriesRecyclerAdapter extends PagedListAdapter<Datum, Ho
                 LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
                 holder.allBrandProductRV.setLayoutManager(manager);
                 holder.allBrandProductRV.setAdapter(productsRecyclerAdapter);
+
+                holder.allBrandProductRV.addOnItemTouchListener(new RecyclerTouchListener(context, holder.allBrandProductRV, new RecyclerTouchListener.ClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+
+                        int productId = categoryItem.getProducts().get(position).getId();
+                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationProductDetails(productId));
+
+                    }
+
+                    @Override
+                    public void onLongClick(View view, int position) {
+
+                    }
+                }));
 
 
             } else {

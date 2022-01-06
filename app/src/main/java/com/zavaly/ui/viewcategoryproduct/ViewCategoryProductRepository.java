@@ -81,6 +81,20 @@ public class ViewCategoryProductRepository {
                                 categoryProductRV.setLayoutManager(manager);
                                 categoryProductRV.setAdapter(adapter);
 
+                                categoryProductRV.addOnItemTouchListener(new RecyclerTouchListener(context, categoryProductRV, new RecyclerTouchListener.ClickListener() {
+                                    @Override
+                                    public void onClick(View view, int position) {
+
+                                        int productId = response.body().getCats().getProducts().get(position).getId();
+                                        Navigation.findNavController(view).navigate(ViewCategoryProductFragmentDirections.actionNavigationViewCategoryProductsToNavigationProductDetails(productId));
+
+                                    }
+
+                                    @Override
+                                    public void onLongClick(View view, int position) {
+
+                                    }
+                                }));
                             }
 
                         }
