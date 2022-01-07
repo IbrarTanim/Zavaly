@@ -77,6 +77,7 @@
 
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/variant_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/ten"
@@ -95,6 +96,7 @@
                     android:orientation="horizontal">
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/color_drop_down_layout"
                         style="@style/TextInputDropDownLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -113,6 +115,7 @@
 
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/size_drop_down_layout"
                         style="@style/TextInputDropDownLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -132,6 +135,7 @@
                 </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/models_drop_down_layout"
                     style="@style/TextInputDropDownLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

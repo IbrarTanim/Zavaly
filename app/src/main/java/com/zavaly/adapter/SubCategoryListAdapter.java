@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +16,8 @@ import com.zavaly.models.specificcategory.Category;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SubCategoryListAdapter extends RecyclerView.Adapter<SubCategoryListAdapter.SubCategoryViewHolder> {
 
@@ -32,7 +33,7 @@ public class SubCategoryListAdapter extends RecyclerView.Adapter<SubCategoryList
     @NonNull
     @Override
     public SubCategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_sub_category_list_rv, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_main_menu, parent, false);
         return new SubCategoryViewHolder(view);
     }
 
@@ -64,14 +65,14 @@ public class SubCategoryListAdapter extends RecyclerView.Adapter<SubCategoryList
 
     static class SubCategoryViewHolder extends RecyclerView.ViewHolder {
 
-        AppCompatImageView rowSubCatImage;
+        CircleImageView rowSubCatImage;
         MaterialTextView rowSubCatName;
 
         public SubCategoryViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            rowSubCatImage = itemView.findViewById(R.id.row_sub_category_image);
-            rowSubCatName = itemView.findViewById(R.id.row_sub_category_name);
+            rowSubCatImage = itemView.findViewById(R.id.home_menu_image);
+            rowSubCatName = itemView.findViewById(R.id.home_menu_title);
         }
     }
 }

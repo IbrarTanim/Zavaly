@@ -13,7 +13,7 @@
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/forget_password_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/fragment_account.xml" value="0.36666666666666664" />
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/fragment_dashboard.xml" value="0.36666666666666664" />
-        <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/fragment_notifications.xml" value="0.36666666666666664" />
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/loader.xml" value="0.36666666666666664" />
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/product_details_fragment.xml" value="0.29257246376811596" />
@@ -21,6 +21,7 @@
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/row_home_all_products_rv.xml" value="0.36666666666666664" />
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/row_home_child_rv.xml" value="0.36666666666666664" />
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/row_image_slider.xml" value="0.36666666666666664" />
+        <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/row_main_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/row_product_rv.xml" value="0.36666666666666664" />
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/row_sub_category_list_rv.xml" value="0.36666666666666664" />
         <entry key="..\:/Touhid Workbench/OfficeWorkRemote/Zavaly/app/src/main/res/layout/verify_phone_dialog.xml" value="0.36666666666666664" />

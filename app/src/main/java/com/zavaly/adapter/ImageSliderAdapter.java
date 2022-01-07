@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.zavaly.R;
+import com.zavaly.constants.BaseApiConstant;
+import com.zavaly.enums.ZavalyEnums;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +19,14 @@ import java.util.List;
 
 public class ImageSliderAdapter extends SliderViewAdapter<ImageSliderAdapter.ImageSliderViewHolder> {
 
-    private List<String> sliderImagesList = new ArrayList<>();
     private Context context;
+    private List<String> sliderImagesList = new ArrayList<>();
+    private String type;
 
-    public ImageSliderAdapter(List<String> sliderImagesList, Context context) {
-        this.sliderImagesList = sliderImagesList;
+    public ImageSliderAdapter(Context context, List<String> sliderImagesList, String type) {
         this.context = context;
+        this.sliderImagesList = sliderImagesList;
+        this.type = type;
     }
 
     @Override
@@ -33,16 +37,35 @@ public class ImageSliderAdapter extends SliderViewAdapter<ImageSliderAdapter.Ima
 
     @Override
     public void onBindViewHolder(ImageSliderViewHolder viewHolder, int position) {
-        try {
 
-            String url = sliderImagesList.get(position);
-            Glide.with(viewHolder.view)
-                    .load(url)
-                    .fitCenter()
-                    .into(viewHolder.sliderImageView);
-        } catch (Exception e) {
-            //
+        if (type.equals(String.valueOf(ZavalyEnums.SLIDER_NORMAL))) {
+
+            try {
+
+                String url = sliderImagesList.get(position);
+                Glide.with(viewHolder.view)
+                        .load(url)
+                        .fitCenter()
+                        .into(viewHolder.sliderImageView);
+            } catch (Exception e) {
+                //
+            }
+
+        } else {
+
+            try {
+
+                String url = BaseApiConstant.IMAGE_FETCH_URL + sliderImagesList.get(position);
+                Glide.with(viewHolder.view)
+                        .load(url)
+                        .fitCenter()
+                        .into(viewHolder.sliderImageView);
+            } catch (Exception e) {
+                //
+            }
+
         }
+
 
     }
 

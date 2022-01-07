@@ -19,6 +19,7 @@ import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 import com.zavaly.adapter.ImageSliderAdapter;
 import com.zavaly.databinding.ProductDetailsFragmentBinding;
+import com.zavaly.enums.ZavalyEnums;
 import com.zavaly.models.productdetails.ProductDetailsResponse;
 
 import org.json.JSONArray;
@@ -84,11 +85,11 @@ public class ProductDetailsFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    if (colorsArray.length() >= 0) {
+                    if (colorsArray.length() > 0) {
 
-                        if (binding.colorDropDown.getVisibility() == View.GONE) {
+                        if (binding.colorDropDownLayout.getVisibility() == View.GONE) {
 
-                            binding.colorDropDown.setVisibility(View.VISIBLE);
+                            binding.colorDropDownLayout.setVisibility(View.VISIBLE);
 
                         }
 
@@ -110,9 +111,9 @@ public class ProductDetailsFragment extends Fragment {
 
                     } else {
 
-                        if (binding.colorDropDown.getVisibility() == View.VISIBLE) {
+                        if (binding.colorDropDownLayout.getVisibility() == View.VISIBLE) {
 
-                            binding.colorDropDown.setVisibility(View.GONE);
+                            binding.colorDropDownLayout.setVisibility(View.GONE);
 
                         }
 
@@ -125,11 +126,11 @@ public class ProductDetailsFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    if (sizeArray.length() >= 0) {
+                    if (sizeArray.length() > 0) {
 
-                        if (binding.sizeDropDown.getVisibility() == View.GONE) {
+                        if (binding.sizeDropDownLayout.getVisibility() == View.GONE) {
 
-                            binding.sizeDropDown.setVisibility(View.VISIBLE);
+                            binding.sizeDropDownLayout.setVisibility(View.VISIBLE);
 
                         }
 
@@ -150,9 +151,9 @@ public class ProductDetailsFragment extends Fragment {
 
                     } else {
 
-                        if (binding.sizeDropDown.getVisibility() == View.VISIBLE) {
+                        if (binding.sizeDropDownLayout.getVisibility() == View.VISIBLE) {
 
-                            binding.sizeDropDown.setVisibility(View.GONE);
+                            binding.sizeDropDownLayout.setVisibility(View.GONE);
 
                         }
 
@@ -165,11 +166,11 @@ public class ProductDetailsFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    if (modelArray.length() >= 0) {
+                    if (modelArray.length() > 0) {
 
-                        if (binding.modelsDropDown.getVisibility() == View.GONE) {
+                        if (binding.modelsDropDownLayout.getVisibility() == View.GONE) {
 
-                            binding.modelsDropDown.setVisibility(View.VISIBLE);
+                            binding.modelsDropDownLayout.setVisibility(View.VISIBLE);
 
                         }
 
@@ -191,9 +192,27 @@ public class ProductDetailsFragment extends Fragment {
 
                     } else {
 
-                        if (binding.modelsDropDown.getVisibility() == View.VISIBLE) {
+                        if (binding.modelsDropDownLayout.getVisibility() == View.VISIBLE) {
 
-                            binding.modelsDropDown.setVisibility(View.GONE);
+                            binding.modelsDropDownLayout.setVisibility(View.GONE);
+
+                        }
+
+                    }
+
+                    if (sizeArray.length() < 1 && colorsArray.length() < 1 && modelArray.length() < 1) {
+
+                        if (binding.variantLayout.getVisibility() == View.VISIBLE) {
+
+                            binding.variantLayout.setVisibility(View.GONE);
+
+                        }
+
+                    } else {
+
+                        if (binding.variantLayout.getVisibility() == View.GONE) {
+
+                            binding.variantLayout.setVisibility(View.VISIBLE);
 
                         }
 
@@ -210,7 +229,7 @@ public class ProductDetailsFragment extends Fragment {
     private void setUpImageSlider(List<String> listImages) {
 
         SliderView sliderView = binding.imageSlider;
-        imageSliderAdapter = new ImageSliderAdapter(listImages, context);
+        imageSliderAdapter = new ImageSliderAdapter(context, listImages, String.valueOf(ZavalyEnums.SLIDER_PRODUCT));
         sliderView.setSliderAdapter(imageSliderAdapter);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.DROP); //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);

@@ -5,7 +5,6 @@ import android.view.View;
 
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zavaly.adapter.ProductsRecyclerAdapter;
@@ -53,7 +52,7 @@ public class ViewCategoryProductRepository {
                             if (response.body().getCats().getCategory() != null) {
 
                                 SubCategoryListAdapter categoryListAdapter = new SubCategoryListAdapter(context, response.body().getCats().getCategory());
-                                LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                                GridLayoutManager manager = new GridLayoutManager(context, 3);
                                 categoryListRV.setLayoutManager(manager);
                                 categoryListRV.setAdapter(categoryListAdapter);
 

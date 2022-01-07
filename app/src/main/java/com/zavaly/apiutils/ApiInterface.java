@@ -8,6 +8,7 @@ import com.zavaly.models.productdetails.ProductDetailsResponse;
 import com.zavaly.models.recoverpass.RecoverResponse;
 import com.zavaly.models.register.RegisterResponse;
 import com.zavaly.models.registerverify.RegisterVerifyResponse;
+import com.zavaly.models.searchresponse.SearchResponse;
 import com.zavaly.models.specificcategory.SpecificCategoryResponse;
 
 import java.util.HashMap;
@@ -50,5 +51,8 @@ public interface ApiInterface {
 
     @GET("product/details/{id}")
     Call<ProductDetailsResponse> getProductDetails(@Path("id") int productId);
+
+    @GET("product/search")
+    Call<SearchResponse> getSearchProduct(@Query("text") String text, @Query("page") int pageNumber);
 
 }

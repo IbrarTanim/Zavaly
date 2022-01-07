@@ -12,21 +12,26 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.paging.PagedList;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.material.card.MaterialCardView;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
+import com.zavaly.R;
 import com.zavaly.adapter.HomeAllCategoriesRecyclerAdapter;
 import com.zavaly.adapter.ImageSliderAdapter;
+import com.zavaly.adapter.MenuRecyclerAdapter;
 import com.zavaly.databinding.FragmentHomeBinding;
+import com.zavaly.enums.ZavalyEnums;
+import com.zavaly.models.MenuModelClass;
 import com.zavaly.models.allcategorydetails.Datum;
 import com.zavaly.utils.Helper;
+import com.zavaly.utils.RecyclerTouchListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -67,6 +72,7 @@ public class HomeFragment extends Fragment {
                 LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
                 binding.homeAllProductsRv.setLayoutManager(manager);
                 binding.homeAllProductsRv.setAdapter(adapter);
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -78,31 +84,66 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        initialize();
+        setUpMenu();
 
         return root;
     }
 
-    private void initialize() {
+    private void setUpMenu() {
 
-        MaterialCardView allCategoriesCV = binding.allCategoriesBtn;
+        List<MenuModelClass> menuModelClassList = new ArrayList<>();
+        MenuModelClass model1 = new MenuModelClass(1, "Categories", R.drawable.categories_32);
+        MenuModelClass model2 = new MenuModelClass(2, "Shops", R.drawable.online_shop_32);
+        MenuModelClass model3 = new MenuModelClass(3, "Agents", R.drawable.seller_32);
+        MenuModelClass model4 = new MenuModelClass(4, "Campaign", R.drawable.bullhorn_32);
+        MenuModelClass model5 = new MenuModelClass(5, "Discount", R.drawable.discounts);
+        menuModelClassList.add(model1);
+        menuModelClassList.add(model2);
+        menuModelClassList.add(model3);
+        menuModelClassList.add(model4);
+        menuModelClassList.add(model5);
 
-        allCategoriesCV.setOnClickListener(new View.OnClickListener() {
+        MenuRecyclerAdapter menuRecyclerAdapter = new MenuRecyclerAdapter(context, menuModelClassList);
+        GridLayoutManager manager = new GridLayoutManager(context, 3);
+        binding.homeMenusRv.setLayoutManager(manager);
+        binding.homeMenusRv.setAdapter(menuRecyclerAdapter);
+
+        binding.homeMenusRv.addOnItemTouchListener(new RecyclerTouchListener(context, binding.homeMenusRv, new RecyclerTouchListener.ClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view, int position) {
 
-                NavDirections directions = HomeFragmentDirections.actionNavigationHomeToNavigationAllCategories();
-                Navigation.findNavController(view).navigate(directions);
+                int menuId = menuModelClassList.get(position).getMenuId();
+
+                switch (menuId) {
+
+                    case 1:
+                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationAllCategories());
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                }
 
             }
-        });
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
 
     }
+
 
     private void setUpImageSlider(List<String> listImages) {
 
         SliderView sliderView = binding.imageSlider;
-        imageSliderAdapter = new ImageSliderAdapter(listImages, context);
+        imageSliderAdapter = new ImageSliderAdapter(context, listImages, String.valueOf(ZavalyEnums.SLIDER_NORMAL));
         sliderView.setSliderAdapter(imageSliderAdapter);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.DROP); //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);

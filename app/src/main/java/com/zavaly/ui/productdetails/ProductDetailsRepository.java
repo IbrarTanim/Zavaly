@@ -40,7 +40,12 @@ public class ProductDetailsRepository {
 
                     if (response.code() == 200 && response.body().getSuccess()) {
 
-                        liveData.setValue(response.body());
+                        if (response.body().getProduct() != null) {
+
+                            liveData.setValue(response.body());
+
+                        }
+
 
                     }
 
