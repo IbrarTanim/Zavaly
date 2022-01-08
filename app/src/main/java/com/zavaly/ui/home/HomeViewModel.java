@@ -9,6 +9,7 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import com.zavaly.models.allcategorydetails.Datum;
+import com.zavaly.models.searchresponse.Product;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -18,7 +19,9 @@ public class HomeViewModel extends ViewModel {
 
     private HomeRepository homeRepository;
     private LiveData<PagedList<Datum>> categoryPagedList;
+    private LiveData<PagedList<Product>> searchProductList;
     private MutableLiveData<CategoryPageDataSource> liveDataSource;
+    private MutableLiveData<SearchResultDataSource> liveData;
     private Executor executors;
 
     public void viewModelInit(Context context) {
@@ -54,5 +57,27 @@ public class HomeViewModel extends ViewModel {
 
     public LiveData<PagedList<Datum>> getCategoryPagedList() {
         return categoryPagedList;
+    }
+
+    public void getSearchProduct(Context context, String searchText) {
+
+        SearchResultDataSourceFactory factory = new SearchResultDataSourceFactory(context, searchText);
+
+        liveData = factory.getLiveData();
+
+        PagedList.Config pagedListConfig = (new PagedList.Config.Builder())
+                .setEnablePlaceholders(true)
+                .setPageSize(20)
+                .build();
+
+        executors = Executors.newFixedThreadPool(5);
+
+        searchProductList = (new LivePagedListBuilder<Integer, Product>(factory, pagedListConfig))
+                .setFetchExecutor(executors)
+                .build();
+    }
+
+    public LiveData<PagedList<Product>> getSearchProductList() {
+        return searchProductList;
     }
 }

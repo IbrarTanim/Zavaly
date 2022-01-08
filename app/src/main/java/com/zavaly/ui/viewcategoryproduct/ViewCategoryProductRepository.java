@@ -75,7 +75,7 @@ public class ViewCategoryProductRepository {
 
                             if (response.body().getCats().getProducts() != null) {
 
-                                ProductsRecyclerAdapter adapter = new ProductsRecyclerAdapter(context, null, response.body().getCats().getProducts(), String.valueOf(ZavalyEnums.List_Solo_Cat));
+                                ProductsRecyclerAdapter adapter = new ProductsRecyclerAdapter(context, null, response.body().getCats().getProducts(), null, String.valueOf(ZavalyEnums.List_Solo_Cat));
                                 GridLayoutManager manager = new GridLayoutManager(context, 2);
                                 categoryProductRV.setLayoutManager(manager);
                                 categoryProductRV.setAdapter(adapter);

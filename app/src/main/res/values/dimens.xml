@@ -99,4 +99,5 @@
     <dimen name="eight">8dp</dimen>
     <dimen name="thirty_two_sp">32sp</dimen>
     <dimen name="fifteen_sp">15sp</dimen>
+    <dimen name="twenty_six_sp">26sp</dimen>
 </resources>

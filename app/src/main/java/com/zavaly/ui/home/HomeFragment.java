@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,10 +25,12 @@ import com.zavaly.R;
 import com.zavaly.adapter.HomeAllCategoriesRecyclerAdapter;
 import com.zavaly.adapter.ImageSliderAdapter;
 import com.zavaly.adapter.MenuRecyclerAdapter;
+import com.zavaly.adapter.SearchRecyclerAdapter;
 import com.zavaly.databinding.FragmentHomeBinding;
 import com.zavaly.enums.ZavalyEnums;
 import com.zavaly.models.MenuModelClass;
 import com.zavaly.models.allcategorydetails.Datum;
+import com.zavaly.models.searchresponse.Product;
 import com.zavaly.utils.Helper;
 import com.zavaly.utils.RecyclerTouchListener;
 
@@ -89,6 +92,108 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        binding.homeSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                if (newText.isEmpty()) {
+                    if (binding.searchProductRv.getVisibility() == View.VISIBLE) {
+
+                        binding.searchProductRv.setVisibility(View.GONE);
+
+                    }
+
+                    if (binding.homeAllProductsRv.getVisibility() == View.GONE) {
+
+                        binding.homeAllProductsRv.setVisibility(View.VISIBLE);
+
+                    }
+
+                    if (binding.homeMenusRv.getVisibility() == View.GONE) {
+
+                        binding.homeMenusRv.setVisibility(View.VISIBLE);
+
+                    }
+
+                } else {
+                    homeViewModel.getSearchProduct(context, newText);
+                    homeViewModel.getSearchProductList().observe(getViewLifecycleOwner(), new Observer<PagedList<Product>>() {
+                        @Override
+                        public void onChanged(PagedList<Product> products) {
+
+                            if (products != null) {
+
+                                Helper.showLoader(context, "");
+                                SearchRecyclerAdapter adapter = new SearchRecyclerAdapter(context);
+                                adapter.submitList(products);
+                                GridLayoutManager manager = new GridLayoutManager(context, 2);
+
+                                if (binding.searchProductRv.getVisibility() == View.GONE) {
+
+                                    binding.searchProductRv.setVisibility(View.VISIBLE);
+
+                                }
+
+                                if (binding.homeAllProductsRv.getVisibility() == View.VISIBLE) {
+
+                                    binding.homeAllProductsRv.setVisibility(View.GONE);
+
+                                }
+
+                                if (binding.homeMenusRv.getVisibility() == View.VISIBLE) {
+
+                                    binding.homeMenusRv.setVisibility(View.GONE);
+
+                                }
+
+                                binding.searchProductRv.setLayoutManager(manager);
+                                binding.searchProductRv.setAdapter(adapter);
+
+                                binding.searchProductRv.addOnItemTouchListener(new RecyclerTouchListener(context, binding.searchProductRv, new RecyclerTouchListener.ClickListener() {
+                                    @Override
+                                    public void onClick(View view, int position) {
+
+                                        int productId = products.get(position).getId();
+                                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationProductDetails(productId));
+
+                                    }
+
+                                    @Override
+                                    public void onLongClick(View view, int position) {
+
+                                    }
+                                }));
+
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Helper.cancelLoader();
+                                    }
+                                }, 1000);
+
+                            }
+
+
+                        }
+                    });
+                }
+
+
+                return true;
+            }
+        });
+
+    }
+
     private void setUpMenu() {
 
         List<MenuModelClass> menuModelClassList = new ArrayList<>();
@@ -120,12 +225,14 @@ public class HomeFragment extends Fragment {
                         Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationAllCategories());
                         break;
                     case 2:
+                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationShops());
                         break;
                     case 3:
                         break;
                     case 4:
                         break;
                     case 5:
+                        Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationDiscounts());
                         break;
                 }
 

@@ -15,6 +15,7 @@ public class SearchResultDataSourceFactory extends DataSource.Factory {
 
 
     public SearchResultDataSourceFactory(Context context, String searchText) {
+        liveData = new MutableLiveData<>();
         this.context = context;
         this.searchText = searchText;
     }

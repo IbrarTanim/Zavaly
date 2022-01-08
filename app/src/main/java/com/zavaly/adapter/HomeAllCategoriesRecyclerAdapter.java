@@ -71,7 +71,7 @@ public class HomeAllCategoriesRecyclerAdapter extends PagedListAdapter<Datum, Ho
                     }
                 });
 
-                ProductsRecyclerAdapter productsRecyclerAdapter = new ProductsRecyclerAdapter(context, categoryItem.getProducts(), null, String.valueOf(ZavalyEnums.List_All_Cat));
+                ProductsRecyclerAdapter productsRecyclerAdapter = new ProductsRecyclerAdapter(context, categoryItem.getProducts(), null, null, String.valueOf(ZavalyEnums.List_All_Cat));
                 LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
                 holder.allBrandProductRV.setLayoutManager(manager);
                 holder.allBrandProductRV.setAdapter(productsRecyclerAdapter);

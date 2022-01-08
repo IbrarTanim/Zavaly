@@ -105,7 +105,7 @@ public class CategoryPageDataSource extends PageKeyedDataSource<Integer, Datum> 
             @Override
             public void onResponse(Call<AllCategoryDetailsResponse> call, Response<AllCategoryDetailsResponse> response) {
 
-                Integer adjacentKey = (params.key > 1) ? params.key - 1 : null;
+                //Integer adjacentKey = (params.key > 1) ? params.key - 1 : null;
                 if (response.isSuccessful()) {
 
                     if (response.body().getSuccess()) {
