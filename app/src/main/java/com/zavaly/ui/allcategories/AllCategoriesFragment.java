@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.zavaly.adapter.CategoryListAdapter;
 import com.zavaly.databinding.AllCategoriesFragmentBinding;
 import com.zavaly.models.Cat;
+import com.zavaly.utils.Helper;
 import com.zavaly.utils.RecyclerTouchListener;
 
 import java.util.List;
@@ -34,6 +35,8 @@ public class AllCategoriesFragment extends Fragment {
 
         mViewModel = new ViewModelProvider(this).get(AllCategoriesViewModel.class);
         mViewModel.viewModelInit(context);
+
+        Helper.showLoader(context, "");
         mViewModel.getAllCat().observe(getViewLifecycleOwner(), new Observer<List<Cat>>() {
             @Override
             public void onChanged(List<Cat> cats) {
@@ -58,8 +61,12 @@ public class AllCategoriesFragment extends Fragment {
                     }
                 }));
 
+                Helper.cancelLoader();
+
             }
         });
+
+        Helper.cancelLoader();
 
         return binding.getRoot();
     }

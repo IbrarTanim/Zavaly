@@ -76,16 +76,11 @@ public class HomeFragment extends Fragment {
                 binding.homeAllProductsRv.setLayoutManager(manager);
                 binding.homeAllProductsRv.setAdapter(adapter);
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Helper.cancelLoader();
-                    }
-                }, 2000);
-
+                Helper.cancelLoader();
 
             }
         });
+        Helper.cancelLoader();
 
         setUpMenu();
 

@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
@@ -88,7 +89,23 @@ public class Helper {
     }
 
     public static void cancelLoader() {
-        dialog.dismiss();
+
+        if (dialog != null) {
+
+            if (dialog.isShowing()) {
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                    }
+                }, 2000);
+
+            }
+
+        }
+
+
     }
 
 

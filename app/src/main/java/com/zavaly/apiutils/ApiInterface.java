@@ -57,6 +57,6 @@ public interface ApiInterface {
     Call<SearchResponse> getSearchProduct(@Query("text") String text, @Query("page") int pageNumber);
 
     @POST("allshop")
-    Call<ShopsResponse> getAllShops();
+    Call<ShopsResponse> getAllShops(@Query("page") int pageNumber);
 
 }

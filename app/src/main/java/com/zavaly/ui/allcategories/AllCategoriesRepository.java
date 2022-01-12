@@ -37,7 +37,6 @@ public class AllCategoriesRepository {
 
         if (Helper.isOnline(context)) {
 
-            Helper.showLoader(context, "");
 
             pojoCall.enqueue(new Callback<CatBannerResponsePojo>() {
                 @Override
@@ -49,14 +48,10 @@ public class AllCategoriesRepository {
 
                     }
 
-                    Helper.cancelLoader();
-
                 }
 
                 @Override
                 public void onFailure(Call<CatBannerResponsePojo> call, Throwable t) {
-
-                    Helper.cancelLoader();
 
                 }
             });

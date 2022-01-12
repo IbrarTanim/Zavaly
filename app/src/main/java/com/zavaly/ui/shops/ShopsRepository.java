@@ -1,21 +1,9 @@
 package com.zavaly.ui.shops;
 
 import android.content.Context;
-import android.os.Handler;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.zavaly.adapter.ShopsRecyclerAdapter;
 import com.zavaly.apiutils.ApiClient;
 import com.zavaly.apiutils.ApiInterface;
-import com.zavaly.models.shopsresponse.ShopsResponse;
-import com.zavaly.utils.Helper;
-
-import es.dmoral.toasty.Toasty;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ShopsRepository {
 
@@ -29,9 +17,9 @@ public class ShopsRepository {
         apiInterface = apiClient.getClient().create(ApiInterface.class);
     }
 
-    public void getAllShops(RecyclerView recyclerView) {
+    /*public void getAllShops(RecyclerView recyclerView) {
 
-        Call<ShopsResponse> call = apiInterface.getAllShops();
+        Call<ShopsResponse> call = apiInterface.getAllShops(1);
 
         if (Helper.isOnline(context)) {
 
@@ -49,6 +37,20 @@ public class ShopsRepository {
                             LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
                             recyclerView.setLayoutManager(manager);
                             recyclerView.setAdapter(adapter);
+
+                            recyclerView.addOnItemTouchListener(new RecyclerTouchListener(context, recyclerView, new RecyclerTouchListener.ClickListener() {
+                                @Override
+                                public void onClick(View view, int position) {
+
+
+
+                                }
+
+                                @Override
+                                public void onLongClick(View view, int position) {
+
+                                }
+                            }));
 
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -102,5 +104,5 @@ public class ShopsRepository {
 
         }
 
-    }
+    }*/
 }

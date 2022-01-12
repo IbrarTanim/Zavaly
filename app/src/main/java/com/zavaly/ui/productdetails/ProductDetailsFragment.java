@@ -21,6 +21,7 @@ import com.zavaly.adapter.ImageSliderAdapter;
 import com.zavaly.databinding.ProductDetailsFragmentBinding;
 import com.zavaly.enums.ZavalyEnums;
 import com.zavaly.models.productdetails.ProductDetailsResponse;
+import com.zavaly.utils.Helper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +52,9 @@ public class ProductDetailsFragment extends Fragment {
         mViewModel.viewModelInit(context);
 
         int productId = ProductDetailsFragmentArgs.fromBundle(getArguments()).getProductId();
+
+        Helper.showLoader(context, "");
+
         mViewModel.getDetails(productId).observe(getViewLifecycleOwner(), new Observer<ProductDetailsResponse>() {
             @Override
             public void onChanged(ProductDetailsResponse productDetailsResponse) {
@@ -222,6 +226,8 @@ public class ProductDetailsFragment extends Fragment {
 
             }
         });
+
+        Helper.cancelLoader();
 
         return binding.getRoot();
     }

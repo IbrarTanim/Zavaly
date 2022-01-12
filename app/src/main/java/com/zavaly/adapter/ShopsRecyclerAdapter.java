@@ -7,27 +7,41 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.button.MaterialButton;
 import com.zavaly.R;
 import com.zavaly.constants.BaseApiConstant;
 import com.zavaly.models.shopsresponse.Datum;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.zavaly.ui.shops.ShopsFragmentDirections;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ShopsRecyclerAdapter extends RecyclerView.Adapter<ShopsRecyclerAdapter.ShopsViewHolder> {
+public class ShopsRecyclerAdapter extends PagedListAdapter<Datum, ShopsRecyclerAdapter.ShopsViewHolder> {
 
     private Context context;
-    private List<Datum> allShops = new ArrayList<>();
 
-    public ShopsRecyclerAdapter(Context context, List<Datum> allShops) {
+    private static final DiffUtil.ItemCallback<Datum> DIFF_UTIL = new DiffUtil.ItemCallback<Datum>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Datum oldItem, @NonNull Datum newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Datum oldItem, @NonNull Datum newItem) {
+            return true;
+        }
+    };
+
+    public ShopsRecyclerAdapter(Context context) {
+        super(DIFF_UTIL);
         this.context = context;
-        this.allShops = allShops;
     }
+
 
     @NonNull
     @Override
@@ -39,29 +53,31 @@ public class ShopsRecyclerAdapter extends RecyclerView.Adapter<ShopsRecyclerAdap
     @Override
     public void onBindViewHolder(@NonNull ShopsViewHolder holder, int position) {
 
-        if (allShops != null) {
+        Datum datum = getItem(position);
+
+        if (datum != null) {
 
             try {
-                String shopName = allShops.get(position).getShopname();
+                String shopName = datum.getShopname();
                 holder.shopName.setText(shopName);
             } catch (NullPointerException ne) {
 
             }
             try {
-                String shopAddress = allShops.get(position).getShopaddress();
+                String shopAddress = datum.getShopaddress();
                 holder.shopAddress.setText(shopAddress);
             } catch (NullPointerException ne) {
 
             }
             try {
-                String shopContact = allShops.get(position).getShopcontact();
+                String shopContact = datum.getShopcontact();
                 holder.shopContact.setText(shopContact);
             } catch (NullPointerException ne) {
 
             }
             try {
 
-                String shopLogo = String.valueOf(allShops.get(position).getShoplogo());
+                String shopLogo = String.valueOf(datum.getShoplogo());
 
                 String imageUrl = BaseApiConstant.IMAGE_FETCH_URL + shopLogo;
                 Glide.with(context)
@@ -72,20 +88,26 @@ public class ShopsRecyclerAdapter extends RecyclerView.Adapter<ShopsRecyclerAdap
 
             }
 
+            holder.shopLiveChat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Navigation.findNavController(view).navigate(ShopsFragmentDirections.actionNavigationShopsToNavigationChat());
+
+                }
+            });
+
 
         }
 
     }
 
-    @Override
-    public int getItemCount() {
-        return allShops.size();
-    }
 
     static class ShopsViewHolder extends RecyclerView.ViewHolder {
 
         CircleImageView shopImage;
         TextView shopName, shopAddress, shopContact;
+        MaterialButton shopLiveChat;
 
         public ShopsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -94,6 +116,7 @@ public class ShopsRecyclerAdapter extends RecyclerView.Adapter<ShopsRecyclerAdap
             shopName = itemView.findViewById(R.id.row_shop_name);
             shopAddress = itemView.findViewById(R.id.row_shop_address);
             shopContact = itemView.findViewById(R.id.row_shop_contact);
+            shopLiveChat = itemView.findViewById(R.id.shop_live_chat);
         }
     }
 }

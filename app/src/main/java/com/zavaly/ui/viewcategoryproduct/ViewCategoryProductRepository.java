@@ -96,6 +96,8 @@ public class ViewCategoryProductRepository {
                                 }));
                             }
 
+                            Helper.cancelLoader();
+
                         }
 
                     } else {

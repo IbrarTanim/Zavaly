@@ -109,12 +109,22 @@
         android:id="@+id/navigation_discounts"
         android:name="com.zavaly.ui.discount.DiscountFragment"
         android:label="Discounts"
-        tools:layout="@layout/discount_fragment"></fragment>
+        tools:layout="@layout/discount_fragment" />
 
     <fragment
         android:id="@+id/navigation_shops"
         android:name="com.zavaly.ui.shops.ShopsFragment"
         android:label="Shops"
-        tools:layout="@layout/shops_fragment"></fragment>
+        tools:layout="@layout/shops_fragment">
+        <action
+            android:id="@+id/action_navigation_shops_to_navigation_chat"
+            app:destination="@id/navigation_chat" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="com.zavaly.ui.chat.ChatFragment"
+        android:label="Chat"
+        tools:layout="@layout/chat_fragment" />
 
 </navigation>
