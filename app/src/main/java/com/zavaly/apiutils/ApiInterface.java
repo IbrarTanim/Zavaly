@@ -3,6 +3,7 @@ package com.zavaly.apiutils;
 
 import com.zavaly.models.CatBannerResponsePojo;
 import com.zavaly.models.allcategorydetails.AllCategoryDetailsResponse;
+import com.zavaly.models.discountproducts.DiscountProductsResponse;
 import com.zavaly.models.login.LoginResponse;
 import com.zavaly.models.productdetails.ProductDetailsResponse;
 import com.zavaly.models.recoverpass.RecoverResponse;
@@ -58,5 +59,8 @@ public interface ApiInterface {
 
     @POST("allshop")
     Call<ShopsResponse> getAllShops(@Query("page") int pageNumber);
+
+    @GET("discount/product")
+    Call<DiscountProductsResponse> getDiscountedProducts(@Query("pageNumber") int pageNumber);
 
 }

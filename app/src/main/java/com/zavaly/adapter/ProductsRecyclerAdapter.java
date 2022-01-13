@@ -29,14 +29,16 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
     private List<Product__1> allProductsList = new ArrayList<>();
     private List<Product> specificProducts = new ArrayList<>();
     private List<com.zavaly.models.searchresponse.Product> searchProductList = new ArrayList<>();
+    private List<com.zavaly.models.discountproducts.Product> discountedProducts = new ArrayList<>();
     private String listType;
 
 
-    public ProductsRecyclerAdapter(Context context, List<Product__1> allProductsList, List<Product> specificProducts, List<com.zavaly.models.searchresponse.Product> searchProductList, String listType) {
+    public ProductsRecyclerAdapter(Context context, List<Product__1> allProductsList, List<Product> specificProducts, List<com.zavaly.models.searchresponse.Product> searchProductList, List<com.zavaly.models.discountproducts.Product> discountedProducts, String listType) {
         this.context = context;
         this.allProductsList = allProductsList;
         this.specificProducts = specificProducts;
         this.searchProductList = searchProductList;
+        this.discountedProducts = discountedProducts;
         this.listType = listType;
     }
 
@@ -128,6 +130,32 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
 
             }
 
+        } else if (listType.equals(String.valueOf(ZavalyEnums.List_Discounted))) {
+
+            if (discountedProducts != null) {
+
+                holder.productNameTV.setText(discountedProducts.get(position).getTitle());
+
+                holder.productNewPriceTV.setText(String.valueOf(discountedProducts.get(position).getPrice()));
+
+                String imageNameList = discountedProducts.get(position).getImage();
+                try {
+                    JSONArray jsonArray = new JSONArray(imageNameList);
+                    String imageName = jsonArray.getString(0);
+                    if (!imageName.isEmpty()) {
+
+                        String url = BaseApiConstant.IMAGE_FETCH_URL + imageName;
+                        Glide.with(context)
+                                .load(url)
+                                .into(holder.productPhotoIV);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
         }
 
 
@@ -141,6 +169,8 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
             return specificProducts.size();
         } else if (listType.equals(String.valueOf(ZavalyEnums.List_Search))) {
             return searchProductList.size();
+        } else if (listType.equals(String.valueOf(ZavalyEnums.List_Discounted))) {
+            return discountedProducts.size();
         } else {
             return 0;
         }
