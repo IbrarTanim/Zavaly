@@ -12,6 +12,6 @@
         android:layout_marginStart="@dimen/ten"
         android:layout_marginTop="@dimen/twenty"
         android:layout_marginEnd="@dimen/ten"
-        android:layout_marginBottom="@dimen/sixty" />
+        android:layout_marginBottom="@dimen/ten" />
 
 </LinearLayout>

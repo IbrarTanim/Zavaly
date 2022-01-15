@@ -35,6 +35,15 @@ public class Product {
     @SerializedName("disprice")
     @Expose
     private Object disprice;
+    @SerializedName("custom_qty")
+    @Expose
+    private String customQty;
+    @SerializedName("custom_qty_price")
+    @Expose
+    private String customQtyPrice;
+    @SerializedName("is_main_price_hide")
+    @Expose
+    private Integer isMainPriceHide;
     @SerializedName("cashback")
     @Expose
     private Integer cashback;
@@ -187,6 +196,30 @@ public class Product {
 
     public void setDisprice(Object disprice) {
         this.disprice = disprice;
+    }
+
+    public String getCustomQty() {
+        return customQty;
+    }
+
+    public void setCustomQty(String customQty) {
+        this.customQty = customQty;
+    }
+
+    public String getCustomQtyPrice() {
+        return customQtyPrice;
+    }
+
+    public void setCustomQtyPrice(String customQtyPrice) {
+        this.customQtyPrice = customQtyPrice;
+    }
+
+    public Integer getIsMainPriceHide() {
+        return isMainPriceHide;
+    }
+
+    public void setIsMainPriceHide(Integer isMainPriceHide) {
+        this.isMainPriceHide = isMainPriceHide;
     }
 
     public Integer getCashback() {

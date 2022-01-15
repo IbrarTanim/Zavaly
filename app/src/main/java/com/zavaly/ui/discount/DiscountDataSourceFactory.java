@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
 
-public class DiscountDataSourceFactory extends DataSource.Factory {
+import com.zavaly.models.discountproducts.Datum;
+
+public class DiscountDataSourceFactory extends DataSource.Factory<Integer, Datum> {
 
     private Context context;
 
@@ -17,16 +19,16 @@ public class DiscountDataSourceFactory extends DataSource.Factory {
         discountDataSourceMutableLiveData = new MutableLiveData<>();
     }
 
+
     @NonNull
     @Override
-    public DataSource create() {
-
+    public DataSource<Integer, Datum> create() {
         DiscountDataSource discountDataSource = new DiscountDataSource(context);
         discountDataSourceMutableLiveData.postValue(discountDataSource);
 
         return discountDataSource;
-
     }
+
 
     public MutableLiveData<DiscountDataSource> getDiscountDataSourceMutableLiveData() {
         return discountDataSourceMutableLiveData;

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/seventy"
     tools:context=".ui.discount.DiscountFragment">
 
 
@@ -14,7 +15,7 @@
         android:layout_marginStart="@dimen/ten"
         android:layout_marginTop="@dimen/twenty"
         android:layout_marginEnd="@dimen/ten"
-        android:layout_marginBottom="@dimen/sixty"
+        android:layout_marginBottom="@dimen/ten"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

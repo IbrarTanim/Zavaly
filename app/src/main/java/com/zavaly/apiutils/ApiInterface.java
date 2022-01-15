@@ -61,6 +61,6 @@ public interface ApiInterface {
     Call<ShopsResponse> getAllShops(@Query("page") int pageNumber);
 
     @GET("discount/product")
-    Call<DiscountProductsResponse> getDiscountedProducts(@Query("pageNumber") int pageNumber);
+    Call<DiscountProductsResponse> getDiscountedProducts(@Query("page") int pageNumber);
 
 }

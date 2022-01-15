@@ -45,9 +45,9 @@ public class DiscountRepository {
                 if (response.body() != null) {
 
                     Log.e("*********", "1");
-                    if (response.body().getSuccess()) {
+                    if (response.body().getData() != null) {
                         Log.e("*********", "2");
-                        ProductsRecyclerAdapter adapter = new ProductsRecyclerAdapter(context, null, null, null, response.body().getProducts(), String.valueOf(ZavalyEnums.List_Discounted));
+                        ProductsRecyclerAdapter adapter = new ProductsRecyclerAdapter(context, null, null, null, response.body().getData(), String.valueOf(ZavalyEnums.List_Discounted));
                         GridLayoutManager manager = new GridLayoutManager(context, 2);
                         recyclerView.setLayoutManager(manager);
                         recyclerView.setAdapter(adapter);

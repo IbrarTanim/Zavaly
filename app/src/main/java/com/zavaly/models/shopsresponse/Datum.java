@@ -1,10 +1,9 @@
 
 package com.zavaly.models.shopsresponse;
 
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 
 public class Datum {
@@ -12,48 +11,30 @@ public class Datum {
     @SerializedName("id")
     @Expose
     private Integer id;
+    @SerializedName("avater")
+    @Expose
+    private Object avater;
     @SerializedName("name")
     @Expose
     private String name;
     @SerializedName("phone")
     @Expose
     private String phone;
-    @SerializedName("shopname")
+    @SerializedName("verified")
     @Expose
-    private String shopname;
-    @SerializedName("shoplogo")
-    @Expose
-    private Object shoplogo;
-    @SerializedName("shoplocation")
-    @Expose
-    private String shoplocation;
-    @SerializedName("sublocations")
-    @Expose
-    private String sublocations;
-    @SerializedName("shopaddress")
-    @Expose
-    private String shopaddress;
-    @SerializedName("shopcontact")
-    @Expose
-    private String shopcontact;
-    @SerializedName("reviews")
-    @Expose
-    private List<Object> reviews = null;
-    @SerializedName("role")
-    @Expose
-    private String role;
+    private Integer verified;
     @SerializedName("approved")
     @Expose
     private Integer approved;
     @SerializedName("disabled")
     @Expose
     private Integer disabled;
-    @SerializedName("verified")
-    @Expose
-    private Integer verified;
     @SerializedName("commission")
     @Expose
-    private Integer commission;
+    private String commission;
+    @SerializedName("role")
+    @Expose
+    private String role;
     @SerializedName("refercode")
     @Expose
     private String refercode;
@@ -63,24 +44,42 @@ public class Datum {
     @SerializedName("added_by")
     @Expose
     private Object addedBy;
-    @SerializedName("created_at")
+    @SerializedName("shopname")
     @Expose
-    private String createdAt;
-    @SerializedName("updated_at")
+    private String shopname;
+    @SerializedName("shoplogo")
     @Expose
-    private String updatedAt;
-    @SerializedName("totalsale")
+    private String shoplogo;
+    @SerializedName("shoplocation")
     @Expose
-    private List<Object> totalsale = null;
-    @SerializedName("totalpending")
+    private String shoplocation;
+    @SerializedName("sublocations")
     @Expose
-    private List<Object> totalpending = null;
+    private String sublocations;
+    @SerializedName("shopcontact")
+    @Expose
+    private String shopcontact;
+    @SerializedName("shopaddress")
+    @Expose
+    private String shopaddress;
+    @SerializedName("email_verified_at")
+    @Expose
+    private Object emailVerifiedAt;
     @SerializedName("depuy")
     @Expose
     private String depuy;
     @SerializedName("bonus_use_limit")
     @Expose
     private Integer bonusUseLimit;
+    @SerializedName("mall_id")
+    @Expose
+    private Object mallId;
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
+    @SerializedName("updated_at")
+    @Expose
+    private String updatedAt;
 
     public Integer getId() {
         return id;
@@ -88,6 +87,14 @@ public class Datum {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Object getAvater() {
+        return avater;
+    }
+
+    public void setAvater(Object avater) {
+        this.avater = avater;
     }
 
     public String getName() {
@@ -106,68 +113,12 @@ public class Datum {
         this.phone = phone;
     }
 
-    public String getShopname() {
-        return shopname;
+    public Integer getVerified() {
+        return verified;
     }
 
-    public void setShopname(String shopname) {
-        this.shopname = shopname;
-    }
-
-    public Object getShoplogo() {
-        return shoplogo;
-    }
-
-    public void setShoplogo(Object shoplogo) {
-        this.shoplogo = shoplogo;
-    }
-
-    public String getShoplocation() {
-        return shoplocation;
-    }
-
-    public void setShoplocation(String shoplocation) {
-        this.shoplocation = shoplocation;
-    }
-
-    public String getSublocations() {
-        return sublocations;
-    }
-
-    public void setSublocations(String sublocations) {
-        this.sublocations = sublocations;
-    }
-
-    public String getShopaddress() {
-        return shopaddress;
-    }
-
-    public void setShopaddress(String shopaddress) {
-        this.shopaddress = shopaddress;
-    }
-
-    public String getShopcontact() {
-        return shopcontact;
-    }
-
-    public void setShopcontact(String shopcontact) {
-        this.shopcontact = shopcontact;
-    }
-
-    public List<Object> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Object> reviews) {
-        this.reviews = reviews;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public void setVerified(Integer verified) {
+        this.verified = verified;
     }
 
     public Integer getApproved() {
@@ -186,20 +137,20 @@ public class Datum {
         this.disabled = disabled;
     }
 
-    public Integer getVerified() {
-        return verified;
-    }
-
-    public void setVerified(Integer verified) {
-        this.verified = verified;
-    }
-
-    public Integer getCommission() {
+    public String getCommission() {
         return commission;
     }
 
-    public void setCommission(Integer commission) {
+    public void setCommission(String commission) {
         this.commission = commission;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getRefercode() {
@@ -226,36 +177,60 @@ public class Datum {
         this.addedBy = addedBy;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public String getShopname() {
+        return shopname;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setShopname(String shopname) {
+        this.shopname = shopname;
     }
 
-    public String getUpdatedAt() {
-        return updatedAt;
+    public String getShoplogo() {
+        return shoplogo;
     }
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setShoplogo(String shoplogo) {
+        this.shoplogo = shoplogo;
     }
 
-    public List<Object> getTotalsale() {
-        return totalsale;
+    public String getShoplocation() {
+        return shoplocation;
     }
 
-    public void setTotalsale(List<Object> totalsale) {
-        this.totalsale = totalsale;
+    public void setShoplocation(String shoplocation) {
+        this.shoplocation = shoplocation;
     }
 
-    public List<Object> getTotalpending() {
-        return totalpending;
+    public String getSublocations() {
+        return sublocations;
     }
 
-    public void setTotalpending(List<Object> totalpending) {
-        this.totalpending = totalpending;
+    public void setSublocations(String sublocations) {
+        this.sublocations = sublocations;
+    }
+
+    public String getShopcontact() {
+        return shopcontact;
+    }
+
+    public void setShopcontact(String shopcontact) {
+        this.shopcontact = shopcontact;
+    }
+
+    public String getShopaddress() {
+        return shopaddress;
+    }
+
+    public void setShopaddress(String shopaddress) {
+        this.shopaddress = shopaddress;
+    }
+
+    public Object getEmailVerifiedAt() {
+        return emailVerifiedAt;
+    }
+
+    public void setEmailVerifiedAt(Object emailVerifiedAt) {
+        this.emailVerifiedAt = emailVerifiedAt;
     }
 
     public String getDepuy() {
@@ -272,6 +247,30 @@ public class Datum {
 
     public void setBonusUseLimit(Integer bonusUseLimit) {
         this.bonusUseLimit = bonusUseLimit;
+    }
+
+    public Object getMallId() {
+        return mallId;
+    }
+
+    public void setMallId(Object mallId) {
+        this.mallId = mallId;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
 }

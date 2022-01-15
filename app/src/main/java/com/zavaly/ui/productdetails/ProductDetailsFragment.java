@@ -3,6 +3,7 @@ package com.zavaly.ui.productdetails;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 import com.zavaly.adapter.ImageSliderAdapter;
+import com.zavaly.adapter.ProductPriceRecyclerAdapter;
 import com.zavaly.databinding.ProductDetailsFragmentBinding;
 import com.zavaly.enums.ZavalyEnums;
+import com.zavaly.models.pricemodel.PriceDetailsObject;
 import com.zavaly.models.productdetails.ProductDetailsResponse;
 import com.zavaly.utils.Helper;
 
@@ -61,166 +65,7 @@ public class ProductDetailsFragment extends Fragment {
 
                 if (productDetailsResponse != null) {
 
-                    try {
-                        JSONArray jsonArray = new JSONArray(productDetailsResponse.getProduct().getImage());
-
-                        for (int i = 0; i < jsonArray.length(); i++) {
-
-                            String imageName = jsonArray.getString(i);
-                            if (!imageName.isEmpty()) {
-
-                                imageList.add(imageName);
-
-                            }
-
-                        }
-                        setUpImageSlider(imageList);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    binding.tvProductName.setText(productDetailsResponse.getProduct().getTitle());
-                    binding.tvProductPrice.setText(productDetailsResponse.getProduct().getPrice());
-
-                    JSONArray colorsArray = null;
-                    try {
-                        colorsArray = new JSONArray(productDetailsResponse.getProduct().getColor());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    if (colorsArray.length() > 0) {
-
-                        if (binding.colorDropDownLayout.getVisibility() == View.GONE) {
-
-                            binding.colorDropDownLayout.setVisibility(View.VISIBLE);
-
-                        }
-
-                        List<String> colors = new ArrayList<>();
-                        for (int c = 0; c < colorsArray.length(); c++) {
-
-                            try {
-                                JSONObject object = new JSONObject(colorsArray.getString(c));
-                                colors.add(object.getString("name"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-
-                        ArrayAdapter<String> colorsAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, colors);
-                        //districtAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-                        binding.colorDropDown.setAdapter(colorsAdapter);
-
-                    } else {
-
-                        if (binding.colorDropDownLayout.getVisibility() == View.VISIBLE) {
-
-                            binding.colorDropDownLayout.setVisibility(View.GONE);
-
-                        }
-
-                    }
-
-
-                    JSONArray sizeArray = null;
-                    try {
-                        sizeArray = new JSONArray(productDetailsResponse.getProduct().getSize());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    if (sizeArray.length() > 0) {
-
-                        if (binding.sizeDropDownLayout.getVisibility() == View.GONE) {
-
-                            binding.sizeDropDownLayout.setVisibility(View.VISIBLE);
-
-                        }
-
-                        List<String> sizes = new ArrayList<>();
-                        for (int s = 0; s < sizeArray.length(); s++) {
-
-                            try {
-                                sizes.add(sizeArray.getString(s));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-
-                        ArrayAdapter<String> sizesAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, sizes);
-                        //districtAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-                        binding.sizeDropDown.setAdapter(sizesAdapter);
-
-                    } else {
-
-                        if (binding.sizeDropDownLayout.getVisibility() == View.VISIBLE) {
-
-                            binding.sizeDropDownLayout.setVisibility(View.GONE);
-
-                        }
-
-                    }
-
-
-                    JSONArray modelArray = null;
-                    try {
-                        modelArray = new JSONArray(productDetailsResponse.getProduct().getModel());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    if (modelArray.length() > 0) {
-
-                        if (binding.modelsDropDownLayout.getVisibility() == View.GONE) {
-
-                            binding.modelsDropDownLayout.setVisibility(View.VISIBLE);
-
-                        }
-
-                        List<String> models = new ArrayList<>();
-                        for (int m = 0; m < modelArray.length(); m++) {
-
-                            try {
-                                JSONObject object = new JSONObject(modelArray.getString(m));
-                                models.add(object.getString("name"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-
-                        ArrayAdapter<String> modelsAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, models);
-                        //districtAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-                        binding.modelsDropDown.setAdapter(modelsAdapter);
-
-                    } else {
-
-                        if (binding.modelsDropDownLayout.getVisibility() == View.VISIBLE) {
-
-                            binding.modelsDropDownLayout.setVisibility(View.GONE);
-
-                        }
-
-                    }
-
-                    if (sizeArray.length() < 1 && colorsArray.length() < 1 && modelArray.length() < 1) {
-
-                        if (binding.variantLayout.getVisibility() == View.VISIBLE) {
-
-                            binding.variantLayout.setVisibility(View.GONE);
-
-                        }
-
-                    } else {
-
-                        if (binding.variantLayout.getVisibility() == View.GONE) {
-
-                            binding.variantLayout.setVisibility(View.VISIBLE);
-
-                        }
-
-                    }
+                    setUpViews(productDetailsResponse);
 
                 }
 
@@ -231,6 +76,241 @@ public class ProductDetailsFragment extends Fragment {
 
         return binding.getRoot();
     }
+
+
+    private void setUpViews(ProductDetailsResponse productDetailsResponse) {
+
+        /**
+         * Image Load
+         * */
+
+        try {
+            JSONArray jsonArray = new JSONArray(productDetailsResponse.getProduct().getImage());
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                String imageName = jsonArray.getString(i);
+                if (!imageName.isEmpty()) {
+
+                    imageList.add(imageName);
+
+                }
+
+            }
+            setUpImageSlider(imageList);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        /**
+         * Product name
+         * */
+
+        binding.tvProductName.setText(productDetailsResponse.getProduct().getTitle());
+
+        /**
+         * Product Price
+         * */
+
+        if (productDetailsResponse.getProduct().getCustomQty() != null) {
+
+            List<PriceDetailsObject> priceDetails = new ArrayList<>();
+            try {
+                JSONArray array = new JSONArray(productDetailsResponse.getProduct().getCustomQty());
+                if (array.length() > 0) {
+
+                    for (int i = 0; i < array.length(); i++) {
+
+                        String productQuantity = array.getString(i);
+                        Log.e("productQuantity", productQuantity);
+                        JSONArray priceArray = new JSONArray(productDetailsResponse.getProduct().getCustomQtyPrice());
+                        String productPrice = priceArray.getString(i);
+                        Log.e("productPrice", productPrice);
+
+                        PriceDetailsObject priceDetailsObject;
+                        if (productDetailsResponse.getProduct().getDisprice() != null) {
+
+                            priceDetailsObject = new PriceDetailsObject(productQuantity, String.valueOf(productDetailsResponse.getProduct().getDisprice()), productPrice);
+
+                        } else {
+
+                            priceDetailsObject = new PriceDetailsObject(productQuantity, null, productPrice);
+
+                        }
+                        priceDetails.add(priceDetailsObject);
+
+                    }
+
+                }
+            } catch (JSONException e) {
+                Log.e("JSON Exception", e.getMessage());
+            }
+
+            if (!priceDetails.isEmpty()) {
+
+                ProductPriceRecyclerAdapter adapter = new ProductPriceRecyclerAdapter(context, priceDetails);
+                LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                binding.productPriceRv.setLayoutManager(manager);
+                binding.productPriceRv.setAdapter(adapter);
+
+            }
+
+
+        }
+
+
+        /**
+         * Product color
+         * */
+
+        JSONArray colorsArray = null;
+        try {
+            colorsArray = new JSONArray(productDetailsResponse.getProduct().getColor());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (colorsArray.length() > 0) {
+
+            if (binding.colorDropDownLayout.getVisibility() == View.GONE) {
+
+                binding.colorDropDownLayout.setVisibility(View.VISIBLE);
+
+            }
+
+            List<String> colors = new ArrayList<>();
+            for (int c = 0; c < colorsArray.length(); c++) {
+
+                try {
+                    JSONObject object = new JSONObject(colorsArray.getString(c));
+                    colors.add(object.getString("name"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            ArrayAdapter<String> colorsAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, colors);
+
+            binding.colorDropDown.setAdapter(colorsAdapter);
+
+        } else {
+
+            if (binding.colorDropDownLayout.getVisibility() == View.VISIBLE) {
+
+                binding.colorDropDownLayout.setVisibility(View.GONE);
+
+            }
+
+        }
+
+
+        /**
+         * Product Size
+         * */
+
+        JSONArray sizeArray = null;
+        try {
+            sizeArray = new JSONArray(productDetailsResponse.getProduct().getSize());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (sizeArray.length() > 0) {
+
+            if (binding.sizeDropDownLayout.getVisibility() == View.GONE) {
+
+                binding.sizeDropDownLayout.setVisibility(View.VISIBLE);
+
+            }
+
+            List<String> sizes = new ArrayList<>();
+            for (int s = 0; s < sizeArray.length(); s++) {
+
+                try {
+                    sizes.add(sizeArray.getString(s));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            ArrayAdapter<String> sizesAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, sizes);
+            binding.sizeDropDown.setAdapter(sizesAdapter);
+
+        } else {
+
+            if (binding.sizeDropDownLayout.getVisibility() == View.VISIBLE) {
+
+                binding.sizeDropDownLayout.setVisibility(View.GONE);
+
+            }
+
+        }
+
+
+        /**
+         * Product Model
+         * */
+
+        JSONArray modelArray = null;
+        try {
+            modelArray = new JSONArray(productDetailsResponse.getProduct().getModel());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (modelArray.length() > 0) {
+
+            if (binding.modelsDropDownLayout.getVisibility() == View.GONE) {
+
+                binding.modelsDropDownLayout.setVisibility(View.VISIBLE);
+
+            }
+
+            List<String> models = new ArrayList<>();
+            for (int m = 0; m < modelArray.length(); m++) {
+
+                try {
+                    JSONObject object = new JSONObject(modelArray.getString(m));
+                    models.add(object.getString("name"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            ArrayAdapter<String> modelsAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, models);
+            binding.modelsDropDown.setAdapter(modelsAdapter);
+
+        } else {
+
+            if (binding.modelsDropDownLayout.getVisibility() == View.VISIBLE) {
+
+                binding.modelsDropDownLayout.setVisibility(View.GONE);
+
+            }
+
+        }
+
+        if (sizeArray.length() < 1 && colorsArray.length() < 1 && modelArray.length() < 1) {
+
+            if (binding.variantLayout.getVisibility() == View.VISIBLE) {
+
+                binding.variantLayout.setVisibility(View.GONE);
+
+            }
+
+        } else {
+
+            if (binding.variantLayout.getVisibility() == View.GONE) {
+
+                binding.variantLayout.setVisibility(View.VISIBLE);
+
+            }
+
+        }
+
+    }
+
 
     private void setUpImageSlider(List<String> listImages) {
 

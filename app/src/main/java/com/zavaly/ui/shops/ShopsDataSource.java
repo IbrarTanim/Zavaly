@@ -47,7 +47,7 @@ public class ShopsDataSource extends PageKeyedDataSource<Integer, Datum> {
 
                         if (response.body().getData() != null) {
 
-                            LAST_PAGE = response.body().getMeta().getLastPage();
+                            LAST_PAGE = response.body().getLastPage();
                             callback.onResult(response.body().getData(), null, FIRST_PAGE + 1);
 
                         } else {

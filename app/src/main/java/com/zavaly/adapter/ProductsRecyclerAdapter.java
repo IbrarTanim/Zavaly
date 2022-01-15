@@ -29,11 +29,11 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
     private List<Product__1> allProductsList = new ArrayList<>();
     private List<Product> specificProducts = new ArrayList<>();
     private List<com.zavaly.models.searchresponse.Product> searchProductList = new ArrayList<>();
-    private List<com.zavaly.models.discountproducts.Product> discountedProducts = new ArrayList<>();
+    private List<com.zavaly.models.discountproducts.Datum> discountedProducts = new ArrayList<>();
     private String listType;
 
 
-    public ProductsRecyclerAdapter(Context context, List<Product__1> allProductsList, List<Product> specificProducts, List<com.zavaly.models.searchresponse.Product> searchProductList, List<com.zavaly.models.discountproducts.Product> discountedProducts, String listType) {
+    public ProductsRecyclerAdapter(Context context, List<Product__1> allProductsList, List<Product> specificProducts, List<com.zavaly.models.searchresponse.Product> searchProductList, List<com.zavaly.models.discountproducts.Datum> discountedProducts, String listType) {
         this.context = context;
         this.allProductsList = allProductsList;
         this.specificProducts = specificProducts;

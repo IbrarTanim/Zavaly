@@ -9,7 +9,7 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.zavaly.models.discountproducts.Product;
+import com.zavaly.models.discountproducts.Datum;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -18,7 +18,7 @@ public class DiscountViewModel extends ViewModel {
 
     private DiscountRepository repository;
     private MutableLiveData<DiscountDataSource> dataSourceMutableLiveData;
-    private LiveData<PagedList<Product>> listLiveData;
+    private LiveData<PagedList<Datum>> listLiveData;
     private Executor executor;
 
     public void viewModelInit(Context context) {
@@ -37,18 +37,18 @@ public class DiscountViewModel extends ViewModel {
 
         PagedList.Config pagedConfig = (new PagedList.Config.Builder())
                 .setEnablePlaceholders(true)
-                .setPageSize(20)
+                .setPageSize(25)
                 .build();
 
         executor = Executors.newFixedThreadPool(5);
 
-        listLiveData = (new LivePagedListBuilder<Integer, Product>(factory, pagedConfig))
+        listLiveData = (new LivePagedListBuilder<Integer, Datum>(factory, pagedConfig))
                 .setFetchExecutor(executor)
                 .build();
 
     }
 
-    public LiveData<PagedList<Product>> getListLiveData() {
+    public LiveData<PagedList<Datum>> getListLiveData() {
         return listLiveData;
     }
 }

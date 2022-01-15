@@ -15,22 +15,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.zavaly.R;
 import com.zavaly.constants.BaseApiConstant;
-import com.zavaly.models.discountproducts.Product;
+import com.zavaly.models.discountproducts.Datum;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
-public class DiscountRecyclerAdapter extends PagedListAdapter<Product, DiscountRecyclerAdapter.ProductsViewHolder> {
+public class DiscountRecyclerAdapter extends PagedListAdapter<Datum, DiscountRecyclerAdapter.ProductsViewHolder> {
 
 
-    private static final DiffUtil.ItemCallback<Product> DIFF_CALLBACK = new DiffUtil.ItemCallback<Product>() {
+    private static DiffUtil.ItemCallback<Datum> DIFF_CALLBACK = new DiffUtil.ItemCallback<Datum>() {
         @Override
-        public boolean areItemsTheSame(@NonNull Product oldItem, @NonNull Product newItem) {
+        public boolean areItemsTheSame(@NonNull Datum oldItem, @NonNull Datum newItem) {
             return oldItem.getId() == newItem.getId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Product oldItem, @NonNull Product newItem) {
+        public boolean areContentsTheSame(@NonNull Datum oldItem, @NonNull Datum newItem) {
             return true;
         }
     };
@@ -51,7 +51,7 @@ public class DiscountRecyclerAdapter extends PagedListAdapter<Product, DiscountR
     @Override
     public void onBindViewHolder(@NonNull ProductsViewHolder holder, int position) {
 
-        Product product = getItem(position);
+        Datum product = getItem(position);
 
         if (product != null) {
 

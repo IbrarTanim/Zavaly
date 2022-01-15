@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.zavaly.adapter.DiscountRecyclerAdapter;
 import com.zavaly.databinding.DiscountFragmentBinding;
-import com.zavaly.models.discountproducts.Product;
+import com.zavaly.models.discountproducts.Datum;
 import com.zavaly.utils.Helper;
 
 public class DiscountFragment extends Fragment {
@@ -38,17 +38,15 @@ public class DiscountFragment extends Fragment {
 
 
         mViewModel.getDiscountList(context);
-        mViewModel.getListLiveData().observe(getViewLifecycleOwner(), new Observer<PagedList<Product>>() {
+        mViewModel.getListLiveData().observe(getViewLifecycleOwner(), new Observer<PagedList<Datum>>() {
             @Override
-            public void onChanged(PagedList<Product> products) {
+            public void onChanged(PagedList<Datum> products) {
 
                 if (products != null) {
 
                     DiscountRecyclerAdapter adapter = new DiscountRecyclerAdapter(context);
 
                     adapter.submitList(products);
-
-                    adapter.notifyDataSetChanged();
 
                     GridLayoutManager manager = new GridLayoutManager(context, 2);
 

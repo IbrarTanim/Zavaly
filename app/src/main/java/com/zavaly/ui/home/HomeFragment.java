@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,13 +95,7 @@ public class HomeFragment extends Fragment {
         binding.homeSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                if (newText.isEmpty()) {
+                if (query.isEmpty()) {
                     if (binding.searchProductRv.getVisibility() == View.VISIBLE) {
 
                         binding.searchProductRv.setVisibility(View.GONE);
@@ -120,7 +115,7 @@ public class HomeFragment extends Fragment {
                     }
 
                 } else {
-                    homeViewModel.getSearchProduct(context, newText);
+                    homeViewModel.getSearchProduct(context, query);
                     homeViewModel.getSearchProductList().observe(getViewLifecycleOwner(), new Observer<PagedList<Product>>() {
                         @Override
                         public void onChanged(PagedList<Product> products) {
@@ -158,6 +153,7 @@ public class HomeFragment extends Fragment {
                                     public void onClick(View view, int position) {
 
                                         int productId = products.get(position).getId();
+                                        Log.e("ProductId", String.valueOf(productId));
                                         Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationProductDetails(productId));
 
                                     }
@@ -181,6 +177,11 @@ public class HomeFragment extends Fragment {
                         }
                     });
                 }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
 
 
                 return true;

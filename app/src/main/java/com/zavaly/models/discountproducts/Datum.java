@@ -1,13 +1,12 @@
 
 package com.zavaly.models.discountproducts;
 
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
 
-
-public class Product {
+public class Datum {
 
     @SerializedName("id")
     @Expose
@@ -18,15 +17,36 @@ public class Product {
     @SerializedName("image")
     @Expose
     private String image;
+    @SerializedName("color")
+    @Expose
+    private String color;
+    @SerializedName("size")
+    @Expose
+    private String size;
     @SerializedName("cat_id")
     @Expose
     private Integer catId;
+    @SerializedName("stock")
+    @Expose
+    private Integer stock;
     @SerializedName("price")
     @Expose
-    private Integer price;
+    private String price;
     @SerializedName("disprice")
     @Expose
     private Integer disprice;
+    @SerializedName("custom_qty")
+    @Expose
+    private Object customQty;
+    @SerializedName("custom_qty_price")
+    @Expose
+    private Object customQtyPrice;
+    @SerializedName("is_main_price_hide")
+    @Expose
+    private Integer isMainPriceHide;
+    @SerializedName("cashback")
+    @Expose
+    private Integer cashback;
     @SerializedName("details")
     @Expose
     private String details;
@@ -42,15 +62,6 @@ public class Product {
     @SerializedName("ownedtype")
     @Expose
     private String ownedtype;
-    @SerializedName("color")
-    @Expose
-    private String color;
-    @SerializedName("size")
-    @Expose
-    private String size;
-    @SerializedName("stock")
-    @Expose
-    private Integer stock;
     @SerializedName("model")
     @Expose
     private String model;
@@ -60,39 +71,51 @@ public class Product {
     @SerializedName("forweb")
     @Expose
     private String forweb;
-    @SerializedName("cashback")
-    @Expose
-    private Integer cashback;
-    @SerializedName("offer_id")
-    @Expose
-    private String offerId;
     @SerializedName("commission")
     @Expose
     private Integer commission;
-    @SerializedName("catcommission")
+    @SerializedName("bonus_buyable")
     @Expose
-    private Integer catcommission;
-    @SerializedName("categoryinfo")
+    private Integer bonusBuyable;
+    @SerializedName("created_at")
     @Expose
-    private Categoryinfo categoryinfo;
+    private String createdAt;
+    @SerializedName("updated_at")
+    @Expose
+    private String updatedAt;
+    @SerializedName("offer_id")
+    @Expose
+    private String offerId;
+    @SerializedName("ignoreMinimumCart")
+    @Expose
+    private String ignoreMinimumCart;
     @SerializedName("campaign")
     @Expose
     private String campaign;
     @SerializedName("campaign_id")
     @Expose
     private String campaignId;
+    @SerializedName("agentcat_id")
+    @Expose
+    private String agentcatId;
     @SerializedName("can_wholesale")
     @Expose
     private String canWholesale;
     @SerializedName("min_buy")
     @Expose
-    private Object minBuy;
+    private String minBuy;
+    @SerializedName("pricing")
+    @Expose
+    private String pricing;
     @SerializedName("fastdeal")
     @Expose
     private String fastdeal;
     @SerializedName("longdeal")
     @Expose
     private String longdeal;
+    @SerializedName("flashsale")
+    @Expose
+    private String flashsale;
     @SerializedName("promotionenddate")
     @Expose
     private Object promotionenddate;
@@ -102,24 +125,6 @@ public class Product {
     @SerializedName("promotionendmin")
     @Expose
     private Object promotionendmin;
-    @SerializedName("brands")
-    @Expose
-    private List<Brand> brands = null;
-    @SerializedName("user")
-    @Expose
-    private User user;
-    @SerializedName("created_at")
-    @Expose
-    private String createdAt;
-    @SerializedName("updated_at")
-    @Expose
-    private String updatedAt;
-    @SerializedName("bonus_buyable")
-    @Expose
-    private Integer bonusBuyable;
-    @SerializedName("ignoreMinimumCart")
-    @Expose
-    private String ignoreMinimumCart;
 
     public Integer getId() {
         return id;
@@ -145,6 +150,22 @@ public class Product {
         this.image = image;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
     public Integer getCatId() {
         return catId;
     }
@@ -153,11 +174,19 @@ public class Product {
         this.catId = catId;
     }
 
-    public Integer getPrice() {
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -167,6 +196,38 @@ public class Product {
 
     public void setDisprice(Integer disprice) {
         this.disprice = disprice;
+    }
+
+    public Object getCustomQty() {
+        return customQty;
+    }
+
+    public void setCustomQty(Object customQty) {
+        this.customQty = customQty;
+    }
+
+    public Object getCustomQtyPrice() {
+        return customQtyPrice;
+    }
+
+    public void setCustomQtyPrice(Object customQtyPrice) {
+        this.customQtyPrice = customQtyPrice;
+    }
+
+    public Integer getIsMainPriceHide() {
+        return isMainPriceHide;
+    }
+
+    public void setIsMainPriceHide(Integer isMainPriceHide) {
+        this.isMainPriceHide = isMainPriceHide;
+    }
+
+    public Integer getCashback() {
+        return cashback;
+    }
+
+    public void setCashback(Integer cashback) {
+        this.cashback = cashback;
     }
 
     public String getDetails() {
@@ -209,30 +270,6 @@ public class Product {
         this.ownedtype = ownedtype;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
     public String getModel() {
         return model;
     }
@@ -257,12 +294,36 @@ public class Product {
         this.forweb = forweb;
     }
 
-    public Integer getCashback() {
-        return cashback;
+    public Integer getCommission() {
+        return commission;
     }
 
-    public void setCashback(Integer cashback) {
-        this.cashback = cashback;
+    public void setCommission(Integer commission) {
+        this.commission = commission;
+    }
+
+    public Integer getBonusBuyable() {
+        return bonusBuyable;
+    }
+
+    public void setBonusBuyable(Integer bonusBuyable) {
+        this.bonusBuyable = bonusBuyable;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String getOfferId() {
@@ -273,28 +334,12 @@ public class Product {
         this.offerId = offerId;
     }
 
-    public Integer getCommission() {
-        return commission;
+    public String getIgnoreMinimumCart() {
+        return ignoreMinimumCart;
     }
 
-    public void setCommission(Integer commission) {
-        this.commission = commission;
-    }
-
-    public Integer getCatcommission() {
-        return catcommission;
-    }
-
-    public void setCatcommission(Integer catcommission) {
-        this.catcommission = catcommission;
-    }
-
-    public Categoryinfo getCategoryinfo() {
-        return categoryinfo;
-    }
-
-    public void setCategoryinfo(Categoryinfo categoryinfo) {
-        this.categoryinfo = categoryinfo;
+    public void setIgnoreMinimumCart(String ignoreMinimumCart) {
+        this.ignoreMinimumCart = ignoreMinimumCart;
     }
 
     public String getCampaign() {
@@ -313,6 +358,14 @@ public class Product {
         this.campaignId = campaignId;
     }
 
+    public String getAgentcatId() {
+        return agentcatId;
+    }
+
+    public void setAgentcatId(String agentcatId) {
+        this.agentcatId = agentcatId;
+    }
+
     public String getCanWholesale() {
         return canWholesale;
     }
@@ -321,12 +374,20 @@ public class Product {
         this.canWholesale = canWholesale;
     }
 
-    public Object getMinBuy() {
+    public String getMinBuy() {
         return minBuy;
     }
 
-    public void setMinBuy(Object minBuy) {
+    public void setMinBuy(String minBuy) {
         this.minBuy = minBuy;
+    }
+
+    public String getPricing() {
+        return pricing;
+    }
+
+    public void setPricing(String pricing) {
+        this.pricing = pricing;
     }
 
     public String getFastdeal() {
@@ -343,6 +404,14 @@ public class Product {
 
     public void setLongdeal(String longdeal) {
         this.longdeal = longdeal;
+    }
+
+    public String getFlashsale() {
+        return flashsale;
+    }
+
+    public void setFlashsale(String flashsale) {
+        this.flashsale = flashsale;
     }
 
     public Object getPromotionenddate() {
@@ -367,54 +436,6 @@ public class Product {
 
     public void setPromotionendmin(Object promotionendmin) {
         this.promotionendmin = promotionendmin;
-    }
-
-    public List<Brand> getBrands() {
-        return brands;
-    }
-
-    public void setBrands(List<Brand> brands) {
-        this.brands = brands;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Integer getBonusBuyable() {
-        return bonusBuyable;
-    }
-
-    public void setBonusBuyable(Integer bonusBuyable) {
-        this.bonusBuyable = bonusBuyable;
-    }
-
-    public String getIgnoreMinimumCart() {
-        return ignoreMinimumCart;
-    }
-
-    public void setIgnoreMinimumCart(String ignoreMinimumCart) {
-        this.ignoreMinimumCart = ignoreMinimumCart;
     }
 
 }
