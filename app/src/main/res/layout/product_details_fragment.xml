@@ -11,137 +11,87 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/one_hundred_eighty"
-            android:layout_margin="@dimen/seven"
-            app:cardCornerRadius="@dimen/fifteen"
-            app:cardElevation="@dimen/seven">
-
-            <com.smarteist.autoimageslider.SliderView
-                android:id="@+id/imageSlider"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/hundred_eighty"
-                app:sliderAnimationDuration="600"
-                app:sliderAutoCycleDirection="back_and_forth"
-                app:sliderAutoCycleEnabled="true"
-                app:sliderIndicatorAnimationDuration="600"
-                app:sliderIndicatorGravity="center_horizontal|bottom"
-                app:sliderIndicatorMargin="@dimen/fifteen"
-                app:sliderIndicatorOrientation="horizontal"
-                app:sliderIndicatorPadding="@dimen/three"
-                app:sliderIndicatorRadius="@dimen/two"
-                app:sliderIndicatorSelectedColor="#5A5A5A"
-                app:sliderIndicatorUnselectedColor="#FFF"
-                app:sliderScrollTimeInSec="1"
-                app:sliderStartAutoCycle="true" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/ten"
-            app:cardCornerRadius="@dimen/ten"
-            app:cardElevation="@dimen/ten">
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_product_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/ten"
-                android:orientation="vertical">
+                android:textColor="@color/black"
+                android:textSize="@dimen/twenty_six_sp"
+                android:textStyle="bold" />
 
+        </LinearLayout>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_product_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/primary_varient"
-                    android:textSize="@dimen/twenty_sp"
-                    android:textStyle="bold" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/product_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/hundred_eighty"
+            android:layout_gravity="center" />
 
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/product_image_rv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/ten" />
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/product_price_rv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_marginTop="@dimen/ten"
+            android:layout_marginBottom="@dimen/ten" />
 
 
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:id="@+id/variant_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/ten"
-            app:cardCornerRadius="@dimen/ten"
-            app:cardElevation="@dimen/ten">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/ten"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/color_drop_down_layout"
-                        style="@style/TextInputDropDownLayout"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/three"
-                        android:layout_weight="0.5"
-                        android:hint="Color"
-                        app:endIconMode="dropdown_menu">
-
-                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                            android:id="@+id/color_drop_down"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="none" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/size_drop_down_layout"
-                        style="@style/TextInputDropDownLayout"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/three"
-                        android:layout_weight="0.5"
-                        android:hint="Size"
-                        app:endIconMode="dropdown_menu">
-
-                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                            android:id="@+id/size_drop_down"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="none" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
+                android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/models_drop_down_layout"
+                    android:id="@+id/color_drop_down_layout"
                     style="@style/TextInputDropDownLayout"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/five"
-                    android:hint="Models"
+                    android:layout_marginEnd="@dimen/three"
+                    android:layout_weight="0.5"
+                    android:hint="Color"
                     app:endIconMode="dropdown_menu">
 
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/models_drop_down"
+                        android:id="@+id/color_drop_down"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/size_drop_down_layout"
+                    style="@style/TextInputDropDownLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/three"
+                    android:layout_weight="0.5"
+                    android:hint="Size"
+                    app:endIconMode="dropdown_menu">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/size_drop_down"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="none" />
@@ -150,42 +100,112 @@
 
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/models_drop_down_layout"
+                style="@style/TextInputDropDownLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/five"
+                android:hint="Models"
+                app:endIconMode="dropdown_menu">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/models_drop_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
 
 
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:id="@+id/details_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/ten"
-            android:visibility="gone"
-            app:cardCornerRadius="@dimen/ten"
-            app:cardElevation="@dimen/ten">
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sixteen_sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/fifteen_sp" />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/ten">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/five"
+                android:text="Quantity:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sixteen_sp"
+                android:textStyle="bold" />
+
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/ten"
-                android:orientation="vertical">
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <TextView
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_minus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Description:"
+                    android:layout_marginStart="@dimen/five"
+                    android:layout_marginEnd="@dimen/five"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/icon_minus" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/five"
+                    android:layout_marginEnd="@dimen/five"
+                    android:background="@color/transparent"
+                    android:inputType="number"
+                    android:padding="@dimen/five"
+                    android:text="100"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sixteen_sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_description"
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_plus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/fifteen_sp" />
+                    android:layout_marginStart="@dimen/five"
+                    android:layout_marginEnd="@dimen/five"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/icon_plus" />
 
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        </RelativeLayout>
 
 
         <com.google.android.material.button.MaterialButton

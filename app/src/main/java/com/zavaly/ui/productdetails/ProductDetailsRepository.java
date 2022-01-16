@@ -1,13 +1,18 @@
 package com.zavaly.ui.productdetails;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.zavaly.apiutils.ApiClient;
 import com.zavaly.apiutils.ApiInterface;
+import com.zavaly.models.addtocartresponse.AddToCartResponseResponse;
 import com.zavaly.models.productdetails.ProductDetailsResponse;
 import com.zavaly.utils.Helper;
+
+import java.io.IOException;
+import java.util.HashMap;
 
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
@@ -25,6 +30,11 @@ public class ProductDetailsRepository {
         apiClient = new ApiClient(context);
         apiInterface = apiClient.getClient().create(ApiInterface.class);
     }
+
+    /**
+     * Get
+     * Product Details
+     */
 
     public MutableLiveData<ProductDetailsResponse> getDetails(int productId) {
 
@@ -66,6 +76,65 @@ public class ProductDetailsRepository {
         }
 
         return liveData;
+
+    }
+
+
+    /**
+     * Add to cart
+     * <p>
+     * Calculations
+     */
+
+    public void addToCart(HashMap<String, String> params) {
+
+
+        Call<AddToCartResponseResponse> responseCall = apiInterface.addToCart(params);
+
+        if (Helper.isOnline(context)) {
+
+            Helper.showLoader(context, "");
+
+            responseCall.enqueue(new Callback<AddToCartResponseResponse>() {
+                @Override
+                public void onResponse(Call<AddToCartResponseResponse> call, Response<AddToCartResponseResponse> response) {
+
+                    if (response.code() == 200) {
+
+                        Helper.cancelLoader();
+                        Toasty.success(context, response.body().getAlert()).show();
+
+                    } else {
+
+                        Helper.cancelLoader();
+                        Log.e("Error Code", String.valueOf(response.code()));
+                        try {
+                            Log.e("Error Message", response.errorBody().string());
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        Toasty.warning(context, "Add to cart failed!").show();
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<AddToCartResponseResponse> call, Throwable t) {
+
+                    Helper.cancelLoader();
+                    Log.e("Error---", t.getMessage());
+                    Toasty.warning(context, "Server connection failed.").show();
+
+                }
+            });
+
+        } else {
+
+            Toasty.warning(context, "No internet connection").show();
+
+        }
+
 
     }
 }

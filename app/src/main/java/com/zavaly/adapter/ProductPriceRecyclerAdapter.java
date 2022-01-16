@@ -22,6 +22,8 @@ public class ProductPriceRecyclerAdapter extends RecyclerView.Adapter<ProductPri
 
     private List<PriceDetailsObject> priceDetailsObjectList = new ArrayList<>();
 
+    private int lastMinRange = 1;
+
     public ProductPriceRecyclerAdapter(Context context, List<PriceDetailsObject> priceDetailsObjectList) {
         this.context = context;
         this.priceDetailsObjectList = priceDetailsObjectList;
@@ -61,7 +63,19 @@ public class ProductPriceRecyclerAdapter extends RecyclerView.Adapter<ProductPri
 
             }
 
-            holder.productQuantity.setText(priceDetailsObjectList.get(position).getQuantityRange());
+            if (priceDetailsObjectList.get(position).getQuantityRange().equals("1")) {
+
+                String concatRnageText = priceDetailsObjectList.get(position).getQuantityRange() + " Pc";
+                holder.productQuantity.setText(concatRnageText);
+
+            } else {
+                int maxQuantity = Integer.parseInt(priceDetailsObjectList.get(position).getQuantityRange());
+                String concatRnageText = lastMinRange + " - " + maxQuantity + " Pc";
+                holder.productQuantity.setText(concatRnageText);
+
+                lastMinRange = maxQuantity + 1;
+            }
+
 
         }
 

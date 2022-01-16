@@ -1,8 +1,9 @@
 package com.zavaly.ui.productdetails;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,23 +17,26 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
-import com.smarteist.autoimageslider.SliderAnimations;
-import com.smarteist.autoimageslider.SliderView;
+import com.bumptech.glide.Glide;
 import com.zavaly.adapter.ImageSliderAdapter;
+import com.zavaly.adapter.ProductImagesAdapter;
 import com.zavaly.adapter.ProductPriceRecyclerAdapter;
+import com.zavaly.constants.BaseApiConstant;
 import com.zavaly.databinding.ProductDetailsFragmentBinding;
-import com.zavaly.enums.ZavalyEnums;
 import com.zavaly.models.pricemodel.PriceDetailsObject;
 import com.zavaly.models.productdetails.ProductDetailsResponse;
 import com.zavaly.utils.Helper;
+import com.zavaly.utils.RecyclerTouchListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 public class ProductDetailsFragment extends Fragment {
 
@@ -43,10 +47,28 @@ public class ProductDetailsFragment extends Fragment {
     private List<String> imageList;
     private ImageSliderAdapter imageSliderAdapter;
 
+    //variables
+    private int productId;
+    private int cartQuantity = 1;
+    private String cartDiscount = "";
+    private String cartPrice = "";
+    private String cartColor = "";
+    private String cartSize = "";
+    private String cartModel = "";
+
+    private List<Integer> cartQuantityList = new ArrayList<>();
+    private List<Double> cartPriceList = new ArrayList<>();
+
+    private long GUEST_ID;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = ProductDetailsFragmentBinding.inflate(inflater, container, false);
+
+        GUEST_ID = Helper.generateRandom(12);
+
+        Log.e("***********", String.valueOf(GUEST_ID));
 
         imageList =
                 new ArrayList<>();
@@ -55,7 +77,9 @@ public class ProductDetailsFragment extends Fragment {
                 new ViewModelProvider(this).get(ProductDetailsViewModel.class);
         mViewModel.viewModelInit(context);
 
-        int productId = ProductDetailsFragmentArgs.fromBundle(getArguments()).getProductId();
+        productId = ProductDetailsFragmentArgs.fromBundle(getArguments()).getProductId();
+
+        initialize();
 
         Helper.showLoader(context, "");
 
@@ -75,6 +99,151 @@ public class ProductDetailsFragment extends Fragment {
         Helper.cancelLoader();
 
         return binding.getRoot();
+    }
+
+    private void initialize() {
+
+        // set quantity to edit text
+        binding.etQuantity.setText(String.valueOf(cartQuantity));
+        binding.etQuantity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                if (!String.valueOf(charSequence).isEmpty()) {
+                    cartQuantity = Integer.parseInt(String.valueOf(charSequence));
+                } else {
+                    cartQuantity = 0;
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        /**
+         * Quantity Minus
+         * */
+        binding.btnMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (cartQuantity > 1) {
+
+                    cartQuantity = cartQuantity - 1;
+                    binding.etQuantity.setText(String.valueOf(cartQuantity));
+
+                }
+
+            }
+        });
+
+        /**
+         * Quantity Plus
+         * */
+        binding.btnPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                cartQuantity = cartQuantity + 1;
+                binding.etQuantity.setText(String.valueOf(cartQuantity));
+
+
+            }
+        });
+
+
+        /**
+         * Add to cart BTN
+         * */
+        binding.addToCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (validateInformation()) {
+
+                    if (!cartQuantityList.isEmpty()) {
+
+                        for (int i = 0; i < cartQuantityList.size(); i++) {
+
+                            if (cartQuantity < cartQuantityList.get(i)) {
+
+                                try {
+                                    cartPrice = String.valueOf(cartPriceList.get(i));
+                                } catch (Exception e) {
+
+                                }
+
+
+                            }
+
+                        }
+
+                    }
+
+                    HashMap<String, String> params = new HashMap<>();
+                    params.put("product_id", String.valueOf(productId));
+                    params.put("price", cartPrice);
+                    params.put("quantity", String.valueOf(cartQuantity));
+                    params.put("discount", cartDiscount);
+                    params.put("size", cartSize);
+                    params.put("color", cartColor);
+                    params.put("guest_id", String.valueOf(GUEST_ID));
+
+                    Log.e("Cart----", params.toString());
+
+                    mViewModel.addToCart(params);
+
+                }
+
+            }
+        });
+    }
+
+    private boolean validateInformation() {
+
+        boolean valid = true;
+
+        if (binding.colorDropDownLayout.getVisibility() == View.VISIBLE) {
+
+            cartColor = String.valueOf(binding.colorDropDown.getText());
+
+            if (cartColor.isEmpty()) {
+
+                Toasty.warning(context, "Please select color.").show();
+                valid = false;
+
+            }
+
+        }
+        if (binding.sizeDropDownLayout.getVisibility() == View.VISIBLE) {
+
+            cartSize = String.valueOf(binding.sizeDropDown.getText());
+
+            if (cartSize.isEmpty()) {
+
+                Toasty.warning(context, "Please select size.").show();
+                valid = false;
+
+            }
+
+        }
+        if (cartQuantity == 0) {
+
+            Toasty.warning(context, "Please increase quantity.").show();
+            valid = false;
+
+        }
+
+        return valid;
+
     }
 
 
@@ -97,7 +266,56 @@ public class ProductDetailsFragment extends Fragment {
                 }
 
             }
-            setUpImageSlider(imageList);
+
+            if (imageList != null) {
+
+                try {
+
+
+                    String url = BaseApiConstant.IMAGE_FETCH_URL + imageList.get(0);
+                    Glide.with(context)
+                            .load(url)
+                            .into(binding.productImage);
+
+
+                } catch (Exception e) {
+                    //
+                }
+
+                ProductImagesAdapter imagesAdapter = new ProductImagesAdapter(context, imageList, 0);
+                LinearLayoutManager imageManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                binding.productImageRv.setLayoutManager(imageManager);
+                binding.productImageRv.setAdapter(imagesAdapter);
+
+                binding.productImageRv.addOnItemTouchListener(new RecyclerTouchListener(context, binding.productImageRv, new RecyclerTouchListener.ClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+
+                        ProductImagesAdapter imagesAdapter = new ProductImagesAdapter(context, imageList, position);
+                        LinearLayoutManager imageManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                        binding.productImageRv.setLayoutManager(imageManager);
+                        binding.productImageRv.setAdapter(imagesAdapter);
+
+                        try {
+                            String url = BaseApiConstant.IMAGE_FETCH_URL + imageList.get(position);
+                            Glide.with(context)
+                                    .load(url)
+                                    .fitCenter()
+                                    .into(binding.productImage);
+
+                        } catch (Exception e) {
+                            //
+                        }
+
+                    }
+
+                    @Override
+                    public void onLongClick(View view, int position) {
+
+                    }
+                }));
+
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -124,12 +342,14 @@ public class ProductDetailsFragment extends Fragment {
 
                         String productQuantity = array.getString(i);
                         Log.e("productQuantity", productQuantity);
+                        cartQuantityList.add(Integer.parseInt(productQuantity));
                         JSONArray priceArray = new JSONArray(productDetailsResponse.getProduct().getCustomQtyPrice());
                         String productPrice = priceArray.getString(i);
+                        cartPriceList.add(Double.parseDouble(productPrice));
                         Log.e("productPrice", productPrice);
 
                         PriceDetailsObject priceDetailsObject;
-                        if (productDetailsResponse.getProduct().getDisprice() != null) {
+                        if (productDetailsResponse.getProduct().getDisprice() != null || !productDetailsResponse.getProduct().getDisprice().equals("0")) {
 
                             priceDetailsObject = new PriceDetailsObject(productQuantity, String.valueOf(productDetailsResponse.getProduct().getDisprice()), productPrice);
 
@@ -149,6 +369,10 @@ public class ProductDetailsFragment extends Fragment {
 
             if (!priceDetails.isEmpty()) {
 
+                //cartPrice = priceDetails.get(0).getQuantityPrice();
+                if (priceDetails.get(0).getQuantityDisPrice() != null) {
+                    cartDiscount = priceDetails.get(0).getQuantityDisPrice();
+                }
                 ProductPriceRecyclerAdapter adapter = new ProductPriceRecyclerAdapter(context, priceDetails);
                 LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
                 binding.productPriceRv.setLayoutManager(manager);
@@ -156,6 +380,40 @@ public class ProductDetailsFragment extends Fragment {
 
             }
 
+
+        } else {
+
+            if (productDetailsResponse.getProduct().getPrice() != null) {
+
+                List<PriceDetailsObject> priceList = new ArrayList<>();
+                String price = productDetailsResponse.getProduct().getPrice();
+
+                PriceDetailsObject priceDetailsObject;
+                if (productDetailsResponse.getProduct().getDisprice() != null && Double.parseDouble(String.valueOf(productDetailsResponse.getProduct().getDisprice())) != 0) {
+
+                    priceDetailsObject = new PriceDetailsObject("1", String.valueOf(productDetailsResponse.getProduct().getDisprice()), price);
+
+                } else {
+
+                    priceDetailsObject = new PriceDetailsObject("1", null, price);
+
+                }
+                priceList.add(priceDetailsObject);
+
+                if (!priceList.isEmpty()) {
+
+                    cartPrice = priceList.get(0).getQuantityPrice();
+                    if (priceList.get(0).getQuantityDisPrice() != null) {
+                        cartDiscount = priceList.get(0).getQuantityDisPrice();
+                    }
+                    ProductPriceRecyclerAdapter adapter = new ProductPriceRecyclerAdapter(context, priceList);
+                    LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                    binding.productPriceRv.setLayoutManager(manager);
+                    binding.productPriceRv.setAdapter(adapter);
+
+                }
+
+            }
 
         }
 
@@ -309,10 +567,26 @@ public class ProductDetailsFragment extends Fragment {
 
         }
 
+        /**
+         * Product Details
+         * */
+
+        if (productDetailsResponse.getProduct().getDetails() != null) {
+
+            if (binding.detailsLayout.getVisibility() == View.GONE) {
+
+                binding.detailsLayout.setVisibility(View.VISIBLE);
+
+            }
+
+            binding.tvDescription.setText(String.valueOf(productDetailsResponse.getProduct().getDetails()));
+
+        }
+
     }
 
 
-    private void setUpImageSlider(List<String> listImages) {
+    /*private void setUpImageSlider(List<String> listImages) {
 
         SliderView sliderView = binding.imageSlider;
         imageSliderAdapter = new ImageSliderAdapter(context, listImages, String.valueOf(ZavalyEnums.SLIDER_PRODUCT));
@@ -325,7 +599,7 @@ public class ProductDetailsFragment extends Fragment {
         sliderView.setScrollTimeInSec(2); //set scroll delay in seconds :
         sliderView.startAutoCycle();
 
-    }
+    }*/
 
     @Override
     public void onAttach(@NonNull Context context) {

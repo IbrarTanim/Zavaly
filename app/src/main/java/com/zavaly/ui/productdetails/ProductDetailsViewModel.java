@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.zavaly.models.productdetails.ProductDetailsResponse;
 
+import java.util.HashMap;
+
 public class ProductDetailsViewModel extends ViewModel {
 
     private ProductDetailsRepository repository;
@@ -21,5 +23,9 @@ public class ProductDetailsViewModel extends ViewModel {
 
         return repository.getDetails(productId);
 
+    }
+
+    public void addToCart(HashMap<String, String> params) {
+        repository.addToCart(params);
     }
 }

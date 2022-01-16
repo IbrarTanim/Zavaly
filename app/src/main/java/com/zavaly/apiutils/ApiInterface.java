@@ -2,6 +2,7 @@ package com.zavaly.apiutils;
 
 
 import com.zavaly.models.CatBannerResponsePojo;
+import com.zavaly.models.addtocartresponse.AddToCartResponseResponse;
 import com.zavaly.models.allcategorydetails.AllCategoryDetailsResponse;
 import com.zavaly.models.discountproducts.DiscountProductsResponse;
 import com.zavaly.models.login.LoginResponse;
@@ -62,5 +63,11 @@ public interface ApiInterface {
 
     @GET("discount/product")
     Call<DiscountProductsResponse> getDiscountedProducts(@Query("page") int pageNumber);
+
+    /**
+     * Add To Cart Api
+     */
+    @POST("add-to-cart")
+    Call<AddToCartResponseResponse> addToCart(@QueryMap HashMap<String, String> params);
 
 }
