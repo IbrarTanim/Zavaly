@@ -34,6 +34,7 @@ import com.zavaly.models.allcategorydetails.Datum;
 import com.zavaly.models.searchresponse.Product;
 import com.zavaly.utils.Helper;
 import com.zavaly.utils.RecyclerTouchListener;
+import com.zavaly.utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        checkIsGuestLogin();
 
         homeViewModel.viewModelInit(context);
         homeViewModel.getSliders().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
@@ -87,6 +89,7 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
 
     @Override
     public void onResume() {
@@ -255,6 +258,26 @@ public class HomeFragment extends Fragment {
         sliderView.setIndicatorUnselectedColor(Color.GRAY);
         sliderView.setScrollTimeInSec(2); //set scroll delay in seconds :
         sliderView.startAutoCycle();
+
+    }
+
+    private void checkIsGuestLogin() {
+
+
+        SharedPreferencesUtils preferencesUtils = new SharedPreferencesUtils(context);
+
+        String guestInfo = preferencesUtils.getString(String.valueOf(ZavalyEnums.KEY_GUEST));
+
+        if (guestInfo.equals(String.valueOf(ZavalyEnums.NOT_FOUND))) {
+
+            long guestId = Helper.generateRandom(12);
+
+            Log.e("Guest_Id", String.valueOf(guestId));
+
+            preferencesUtils.save(String.valueOf(ZavalyEnums.KEY_GUEST), String.valueOf(guestId));
+
+        }
+
 
     }
 

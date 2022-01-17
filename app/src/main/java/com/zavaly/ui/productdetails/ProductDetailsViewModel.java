@@ -25,7 +25,7 @@ public class ProductDetailsViewModel extends ViewModel {
 
     }
 
-    public void addToCart(HashMap<String, String> params) {
-        repository.addToCart(params);
+    public MutableLiveData<Integer> addToCart(HashMap<String, String> params) {
+        return repository.addToCart(params);
     }
 }

@@ -102,6 +102,10 @@ public class Helper {
                     }
                 }, 2000);
 
+            } else {
+
+                dialog.dismiss();
+
             }
 
         }

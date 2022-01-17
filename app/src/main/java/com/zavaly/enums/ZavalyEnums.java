@@ -7,5 +7,7 @@ public enum ZavalyEnums {
     List_Search,
     List_Discounted,
     SLIDER_NORMAL,
-    SLIDER_PRODUCT
+    SLIDER_PRODUCT,
+    NOT_FOUND,
+    KEY_GUEST
 }

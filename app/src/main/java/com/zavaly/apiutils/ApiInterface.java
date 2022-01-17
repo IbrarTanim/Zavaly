@@ -2,8 +2,10 @@ package com.zavaly.apiutils;
 
 
 import com.zavaly.models.CatBannerResponsePojo;
-import com.zavaly.models.addtocartresponse.AddToCartResponseResponse;
+import com.zavaly.models.addtocartresponse.AddToCartResponse;
 import com.zavaly.models.allcategorydetails.AllCategoryDetailsResponse;
+import com.zavaly.models.cartdelete.CartDeleteResponse;
+import com.zavaly.models.cartview.CartViewResponse;
 import com.zavaly.models.discountproducts.DiscountProductsResponse;
 import com.zavaly.models.login.LoginResponse;
 import com.zavaly.models.productdetails.ProductDetailsResponse;
@@ -68,6 +70,21 @@ public interface ApiInterface {
      * Add To Cart Api
      */
     @POST("add-to-cart")
-    Call<AddToCartResponseResponse> addToCart(@QueryMap HashMap<String, String> params);
+    Call<AddToCartResponse> addToCart(@QueryMap HashMap<String, String> params);
+
+    /**
+     * Cart
+     * View
+     */
+    @POST("cart-view")
+    Call<CartViewResponse> getCartView(@Query("guest_id") String guestId);
+
+    /**
+     * Cart
+     * Delete
+     * Product
+     */
+    @POST("cart-delete")
+    Call<CartDeleteResponse> deleteCartItem(@Query("guest_id") String guestId, @Query("product_id") String productId);
 
 }

@@ -28,10 +28,14 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.zavaly.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_cart"
+        android:name="com.zavaly.ui.cart.CartFragment"
+        android:label="Cart"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_navigation_cart_self"
+            app:destination="@id/navigation_cart" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_account"
@@ -103,6 +107,9 @@
         <argument
             android:name="productId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_navigation_product_details_to_navigation_cart"
+            app:destination="@id/navigation_cart" />
     </fragment>
 
     <fragment

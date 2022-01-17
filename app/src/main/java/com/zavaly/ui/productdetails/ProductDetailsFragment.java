@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
@@ -23,10 +24,12 @@ import com.zavaly.adapter.ProductImagesAdapter;
 import com.zavaly.adapter.ProductPriceRecyclerAdapter;
 import com.zavaly.constants.BaseApiConstant;
 import com.zavaly.databinding.ProductDetailsFragmentBinding;
+import com.zavaly.enums.ZavalyEnums;
 import com.zavaly.models.pricemodel.PriceDetailsObject;
 import com.zavaly.models.productdetails.ProductDetailsResponse;
 import com.zavaly.utils.Helper;
 import com.zavaly.utils.RecyclerTouchListener;
+import com.zavaly.utils.SharedPreferencesUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,16 +62,12 @@ public class ProductDetailsFragment extends Fragment {
     private List<Integer> cartQuantityList = new ArrayList<>();
     private List<Double> cartPriceList = new ArrayList<>();
 
-    private long GUEST_ID;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = ProductDetailsFragmentBinding.inflate(inflater, container, false);
 
-        GUEST_ID = Helper.generateRandom(12);
 
-        Log.e("***********", String.valueOf(GUEST_ID));
 
         imageList =
                 new ArrayList<>();
@@ -188,6 +187,24 @@ public class ProductDetailsFragment extends Fragment {
 
                     }
 
+                    SharedPreferencesUtils preferencesUtils = new SharedPreferencesUtils(context);
+
+                    String GUEST_ID = preferencesUtils.getString(String.valueOf(ZavalyEnums.KEY_GUEST));
+
+                    Log.e("Guest_Id", GUEST_ID);
+
+                    if (GUEST_ID.equals(String.valueOf(ZavalyEnums.NOT_FOUND))) {
+
+                        long guestId = Helper.generateRandom(12);
+
+                        Log.e("Guest_Id", String.valueOf(guestId));
+
+                        GUEST_ID = String.valueOf(guestId);
+
+                        preferencesUtils.save(String.valueOf(ZavalyEnums.KEY_GUEST), String.valueOf(guestId));
+
+                    }
+
                     HashMap<String, String> params = new HashMap<>();
                     params.put("product_id", String.valueOf(productId));
                     params.put("price", cartPrice);
@@ -195,11 +212,22 @@ public class ProductDetailsFragment extends Fragment {
                     params.put("discount", cartDiscount);
                     params.put("size", cartSize);
                     params.put("color", cartColor);
-                    params.put("guest_id", String.valueOf(GUEST_ID));
+                    params.put("guest_id", GUEST_ID);
 
                     Log.e("Cart----", params.toString());
 
-                    mViewModel.addToCart(params);
+                    mViewModel.addToCart(params).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                        @Override
+                        public void onChanged(Integer integer) {
+
+                            if (integer == 200) {
+
+                                NavHostFragment.findNavController(ProductDetailsFragment.this).navigate(ProductDetailsFragmentDirections.actionNavigationProductDetailsToNavigationCart());
+
+                            }
+
+                        }
+                    });
 
                 }
 
@@ -485,7 +513,8 @@ public class ProductDetailsFragment extends Fragment {
             for (int s = 0; s < sizeArray.length(); s++) {
 
                 try {
-                    sizes.add(sizeArray.getString(s));
+                    JSONObject object = new JSONObject(sizeArray.getString(s));
+                    sizes.add(object.getString("size"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -1,19 +1,21 @@
 
-package com.zavaly.models.addtocartresponse;
-
+package com.zavaly.models.cartview;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.zavaly.models.Cart;
+
+import java.util.List;
 
 
-public class AddToCartResponseResponse {
+public class CartViewResponse {
 
     @SerializedName("success")
     @Expose
     private Boolean success;
-    @SerializedName("alert")
+    @SerializedName("carts")
     @Expose
-    private String alert;
+    private List<Cart> carts = null;
 
     public Boolean getSuccess() {
         return success;
@@ -23,12 +25,12 @@ public class AddToCartResponseResponse {
         this.success = success;
     }
 
-    public String getAlert() {
-        return alert;
+    public List<Cart> getCarts() {
+        return carts;
     }
 
-    public void setAlert(String alert) {
-        this.alert = alert;
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
     }
 
 }

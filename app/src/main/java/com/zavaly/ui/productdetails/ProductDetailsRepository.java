@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.zavaly.apiutils.ApiClient;
 import com.zavaly.apiutils.ApiInterface;
-import com.zavaly.models.addtocartresponse.AddToCartResponseResponse;
+import com.zavaly.models.addtocartresponse.AddToCartResponse;
 import com.zavaly.models.productdetails.ProductDetailsResponse;
 import com.zavaly.utils.Helper;
 
@@ -86,27 +86,46 @@ public class ProductDetailsRepository {
      * Calculations
      */
 
-    public void addToCart(HashMap<String, String> params) {
+    public MutableLiveData<Integer> addToCart(HashMap<String, String> params) {
+
+        MutableLiveData<Integer> liveData = new MutableLiveData<>();
 
 
-        Call<AddToCartResponseResponse> responseCall = apiInterface.addToCart(params);
+        Call<AddToCartResponse> responseCall = apiInterface.addToCart(params);
 
         if (Helper.isOnline(context)) {
 
-            Helper.showLoader(context, "");
+            //Helper.showLoader(context, "");
 
-            responseCall.enqueue(new Callback<AddToCartResponseResponse>() {
+            responseCall.enqueue(new Callback<AddToCartResponse>() {
                 @Override
-                public void onResponse(Call<AddToCartResponseResponse> call, Response<AddToCartResponseResponse> response) {
+                public void onResponse(Call<AddToCartResponse> call, Response<AddToCartResponse> response) {
 
                     if (response.code() == 200) {
 
-                        Helper.cancelLoader();
-                        Toasty.success(context, response.body().getAlert()).show();
+                        if (response.body() != null && response.body().getSuccess()) {
+
+                            if (response.body().getCarts() != null) {
+
+                                Toasty.success(context, response.body().getAlert()).show();
+                                liveData.postValue(200);
+
+                            } else {
+
+                                Toasty.success(context, response.body().getAlert()).show();
+
+                            }
+
+                        } else {
+
+                            Toasty.warning(context, "Sorry, try again later.").show();
+
+                        }
+                        //Helper.cancelLoader();
 
                     } else {
 
-                        Helper.cancelLoader();
+                        //Helper.cancelLoader();
                         Log.e("Error Code", String.valueOf(response.code()));
                         try {
                             Log.e("Error Message", response.errorBody().string());
@@ -120,9 +139,9 @@ public class ProductDetailsRepository {
                 }
 
                 @Override
-                public void onFailure(Call<AddToCartResponseResponse> call, Throwable t) {
+                public void onFailure(Call<AddToCartResponse> call, Throwable t) {
 
-                    Helper.cancelLoader();
+                    //Helper.cancelLoader();
                     Log.e("Error---", t.getMessage());
                     Toasty.warning(context, "Server connection failed.").show();
 
@@ -135,6 +154,7 @@ public class ProductDetailsRepository {
 
         }
 
+        return liveData;
 
     }
 }
