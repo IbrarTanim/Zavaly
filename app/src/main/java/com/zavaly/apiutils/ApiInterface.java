@@ -9,6 +9,7 @@ import com.zavaly.models.cartview.CartViewResponse;
 import com.zavaly.models.discountproducts.DiscountProductsResponse;
 import com.zavaly.models.login.LoginResponse;
 import com.zavaly.models.productdetails.ProductDetailsResponse;
+import com.zavaly.models.productupdate.ProductUpdateResponse;
 import com.zavaly.models.recoverpass.RecoverResponse;
 import com.zavaly.models.register.RegisterResponse;
 import com.zavaly.models.registerverify.RegisterVerifyResponse;
@@ -86,5 +87,14 @@ public interface ApiInterface {
      */
     @POST("cart-delete")
     Call<CartDeleteResponse> deleteCartItem(@Query("guest_id") String guestId, @Query("product_id") String productId);
+
+    /**
+     * Cart
+     * Product
+     * Update
+     */
+    @POST("cart-update")
+    Call<ProductUpdateResponse> updateCart(@QueryMap HashMap<String, String> params);
+
 
 }

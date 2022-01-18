@@ -268,6 +268,8 @@ public class HomeFragment extends Fragment {
 
         String guestInfo = preferencesUtils.getString(String.valueOf(ZavalyEnums.KEY_GUEST));
 
+        Log.e("Guest_Id", guestInfo);
+
         if (guestInfo.equals(String.valueOf(ZavalyEnums.NOT_FOUND))) {
 
             long guestId = Helper.generateRandom(12);

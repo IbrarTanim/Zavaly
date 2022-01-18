@@ -10,9 +10,11 @@ import com.zavaly.enums.ZavalyEnums;
 import com.zavaly.models.Cart;
 import com.zavaly.models.cartdelete.CartDeleteResponse;
 import com.zavaly.models.cartview.CartViewResponse;
+import com.zavaly.models.productupdate.ProductUpdateResponse;
 import com.zavaly.utils.Helper;
 import com.zavaly.utils.SharedPreferencesUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -99,8 +101,9 @@ public class CartRepository {
     }
 
 
-    public void deleteCartItem(String productId) {
+    public MutableLiveData<Integer> deleteCartItem(String productId) {
 
+        MutableLiveData<Integer> responseLiveData = new MutableLiveData<>();
 
         String GUEST_ID = preferencesUtils.getString(String.valueOf(ZavalyEnums.KEY_GUEST));
 
@@ -123,9 +126,18 @@ public class CartRepository {
                             if (response.body() != null && response.body().getSuccess()) {
 
                                 Toasty.success(context, "Removed successfully").show();
-                                RESPONSE_CODE = response.code();
+                                responseLiveData.postValue(response.code());
+                                //RESPONSE_CODE = response.code();
+
+                            } else {
+
+                                Toasty.warning(context, "Sorry, failed to remove.").show();
 
                             }
+
+                        } else {
+
+                            Toasty.warning(context, "Sorry, failed to remove.").show();
 
                         }
 
@@ -133,6 +145,8 @@ public class CartRepository {
 
                     @Override
                     public void onFailure(Call<CartDeleteResponse> call, Throwable t) {
+
+                        Toasty.warning(context, "Server connection failed").show();
 
                     }
                 });
@@ -145,10 +159,74 @@ public class CartRepository {
 
         }
 
+        return responseLiveData;
+
     }
 
 
     public int getRESPONSE_CODE() {
         return RESPONSE_CODE;
+    }
+
+
+    public MutableLiveData<Integer> updateProduct(HashMap<String, String> params) {
+
+        MutableLiveData<Integer> responseLiveData = new MutableLiveData<>();
+
+        String GUEST_ID = preferencesUtils.getString(String.valueOf(ZavalyEnums.KEY_GUEST));
+
+        if (GUEST_ID.equals(String.valueOf(ZavalyEnums.NOT_FOUND))) {
+
+            Toasty.warning(context, "Sorry, failed to update.").show();
+
+        } else {
+
+            if (Helper.isOnline(context)) {
+
+                Call<ProductUpdateResponse> pojoCall = apiInterface.updateCart(params);
+
+                pojoCall.enqueue(new Callback<ProductUpdateResponse>() {
+                    @Override
+                    public void onResponse(Call<ProductUpdateResponse> call, Response<ProductUpdateResponse> response) {
+
+                        if (response.code() == 200) {
+
+                            if (response.body().getSuccess()) {
+
+                                responseLiveData.postValue(response.code());
+                                Toasty.success(context, "Updated successfully").show();
+
+                            } else {
+
+                                Toasty.info(context, "Sorry, failed to update.").show();
+
+                            }
+
+                        } else {
+
+                            Toasty.info(context, "Sorry, failed to update.").show();
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ProductUpdateResponse> call, Throwable t) {
+
+                        Toasty.info(context, "Server connection failed").show();
+
+                    }
+                });
+
+            } else {
+
+                Toasty.info(context, "No internet connection").show();
+
+            }
+
+        }
+
+        return responseLiveData;
+
     }
 }

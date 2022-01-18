@@ -23,18 +23,18 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.dmoral.toasty.Toasty;
-
 public class CartViewRecyclerAdapter extends RecyclerView.Adapter<CartViewRecyclerAdapter.CartViewViewHolder> {
 
-    public ChildClickListener clickListener;
     private Context context;
     private List<Cart> cartList = new ArrayList<>();
+    public ChildClickListener deleteListener;
+    public ChildClickListener editListener;
 
-    public CartViewRecyclerAdapter(Context context, List<Cart> cartList, ChildClickListener clickListener) {
+    public CartViewRecyclerAdapter(Context context, List<Cart> cartList, ChildClickListener deleteListener, ChildClickListener editListener) {
         this.context = context;
         this.cartList = cartList;
-        this.clickListener = clickListener;
+        this.deleteListener = deleteListener;
+        this.editListener = editListener;
     }
 
     @NonNull
@@ -135,16 +135,6 @@ public class CartViewRecyclerAdapter extends RecyclerView.Adapter<CartViewRecycl
             }
 
 
-            holder.cartEditBTN.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Toasty.warning(context, "Under construction").show();
-
-                }
-            });
-
-
         }
 
     }
@@ -175,7 +165,14 @@ public class CartViewRecyclerAdapter extends RecyclerView.Adapter<CartViewRecycl
             cartDeleteBTN.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    clickListener.onChildClick(view, getAdapterPosition());
+                    deleteListener.onChildClick(view, getAdapterPosition());
+                }
+            });
+
+            cartEditBTN.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    editListener.onChildClick(view, getAdapterPosition());
                 }
             });
 
