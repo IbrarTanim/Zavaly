@@ -10,6 +10,7 @@ import com.zavaly.enums.ZavalyEnums;
 import com.zavaly.models.Cart;
 import com.zavaly.models.cartdelete.CartDeleteResponse;
 import com.zavaly.models.cartview.CartViewResponse;
+import com.zavaly.models.checkoutresponse.CheckoutResponse;
 import com.zavaly.models.productupdate.ProductUpdateResponse;
 import com.zavaly.utils.Helper;
 import com.zavaly.utils.SharedPreferencesUtils;
@@ -227,6 +228,80 @@ public class CartRepository {
         }
 
         return responseLiveData;
+
+    }
+
+    public MutableLiveData<Integer> checkoutFromCart() {
+
+        MutableLiveData<Integer> responseCode = new MutableLiveData<>();
+
+        if (Helper.isOnline(context)) {
+
+            SharedPreferencesUtils utils = new SharedPreferencesUtils(context);
+
+            String guestId = utils.getString(String.valueOf(ZavalyEnums.KEY_GUEST));
+
+            if (guestId.equals(String.valueOf(ZavalyEnums.NOT_FOUND))) {
+
+                Toasty.warning(context, "Please login first.").show();
+
+            } else {
+
+
+                Call<CheckoutResponse> call = apiInterface.checkoutFromCart(guestId);
+
+                call.enqueue(new Callback<CheckoutResponse>() {
+                    @Override
+                    public void onResponse(Call<CheckoutResponse> call, Response<CheckoutResponse> response) {
+
+                        if (response.code() == 200) {
+
+                            try {
+
+                                if (response.body().getSuccess()) {
+
+                                    Toasty.success(context, "Checkout success").show();
+                                    responseCode.postValue(response.code());
+
+                                } else {
+
+                                    Toasty.warning(context, "Checkout failed").show();
+
+                                }
+
+                            } catch (NullPointerException ne) {
+
+                                Toasty.warning(context, "Checkout failed").show();
+
+                            }
+
+
+                        } else {
+
+                            Toasty.warning(context, "Checkout failed").show();
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<CheckoutResponse> call, Throwable t) {
+
+                        Toasty.warning(context, "Server connection failed").show();
+
+                    }
+                });
+
+            }
+
+        } else {
+
+            Toasty.warning(context, "No internet connection").show();
+
+        }
+
+        return responseCode;
 
     }
 }

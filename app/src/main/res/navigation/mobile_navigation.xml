@@ -35,6 +35,12 @@
         <action
             android:id="@+id/action_navigation_cart_self"
             app:destination="@id/navigation_cart" />
+        <action
+            android:id="@+id/action_navigation_cart_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_navigation_cart_to_navigation_checkout"
+            app:destination="@id/navigation_checkout" />
     </fragment>
 
     <fragment
@@ -133,5 +139,15 @@
         android:name="com.zavaly.ui.chat.ChatFragment"
         android:label="Chat"
         tools:layout="@layout/chat_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_checkout"
+        android:name="com.zavaly.ui.checkout.CheckOutFragment"
+        android:label="Checkout"
+        tools:layout="@layout/check_out_fragment">
+        <action
+            android:id="@+id/action_navigation_checkout_to_navigation_cart"
+            app:destination="@id/navigation_cart" />
+    </fragment>
 
 </navigation>

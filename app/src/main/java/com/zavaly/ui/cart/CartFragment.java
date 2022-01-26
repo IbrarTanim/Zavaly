@@ -15,6 +15,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -236,6 +237,42 @@ public class CartFragment extends Fragment {
 
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        /**
+         * Check Out
+         * **/
+
+        binding.btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                binding.btnCheckout.setEnabled(false);
+
+                cartViewModel.checkoutFromCart().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    @Override
+                    public void onChanged(Integer integer) {
+
+                        if (integer == 200) {
+
+                            Navigation.findNavController(view).navigate(CartFragmentDirections.actionNavigationCartToNavigationCheckout());
+
+                        } else {
+
+                            binding.btnCheckout.setEnabled(true);
+
+                        }
+
+                    }
+                });
+
+            }
+        });
+
     }
 
     private void setUpBottomLayout(List<Cart> carts) {

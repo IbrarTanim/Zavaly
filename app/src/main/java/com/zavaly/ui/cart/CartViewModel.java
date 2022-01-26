@@ -29,4 +29,8 @@ public class CartViewModel extends ViewModel {
     public MutableLiveData<Integer> deleteCartItem(String productId) {
         return cartRepository.deleteCartItem(productId);
     }
+
+    public MutableLiveData<Integer> checkoutFromCart() {
+        return cartRepository.checkoutFromCart();
+    }
 }

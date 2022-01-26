@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,8 +16,6 @@ import com.zavaly.models.MenuModelClass;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapter.MenuViewHolder> {
 
@@ -60,7 +59,7 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
 
     static class MenuViewHolder extends RecyclerView.ViewHolder {
 
-        private CircleImageView menuImage;
+        private ImageView menuImage;
         private MaterialTextView menuTitle;
 
         public MenuViewHolder(@NonNull View itemView) {

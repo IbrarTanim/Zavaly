@@ -31,7 +31,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/one_hundred_eighty"
+            android:layout_height="@dimen/hundred_fifty"
             android:layout_margin="@dimen/seven"
             app:cardCornerRadius="@dimen/fifteen"
             app:cardElevation="@dimen/seven">
@@ -39,7 +39,7 @@
             <com.smarteist.autoimageslider.SliderView
                 android:id="@+id/imageSlider"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/hundred_eighty"
+                android:layout_height="@dimen/hundred_fifty"
                 app:sliderAnimationDuration="600"
                 app:sliderAutoCycleDirection="back_and_forth"
                 app:sliderAutoCycleEnabled="true"
