@@ -260,7 +260,7 @@ public class CartRepository {
 
                                 if (response.body().getSuccess()) {
 
-                                    Toasty.success(context, "Checkout success").show();
+                                    //Toasty.success(context, "Checkout success").show();
                                     responseCode.postValue(response.code());
 
                                 } else {

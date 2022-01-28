@@ -170,6 +170,7 @@ public class AccountFragment extends Fragment {
                                     String name = loginResponse.getUser().getName();
                                     String phone = loginResponse.getUser().getPhone();
                                     String token = loginResponse.getToken();
+                                    int userId = loginResponse.getUser().getId();
                                     String avater;
                                     try {
                                         avater = String.valueOf(loginResponse.getUser().getAvater());
@@ -179,7 +180,7 @@ public class AccountFragment extends Fragment {
 
                                     }
 
-                                    LoginCache loginCache = new LoginCache(name, phone, token, avater);
+                                    LoginCache loginCache = new LoginCache(userId, name, phone, token, avater);
                                     ;
                                     ZavalyRoomDatabase.getINSTANCE(context).loginCacheDao().insert(loginCache);
 

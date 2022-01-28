@@ -37,5 +37,7 @@
     <color name="primary_background_color">#FFFFFF</color>
     <color name="secondary_background_color">#000000</color>
 
+    <color name="bottom_nav_color">#FFFFF1</color>
+
 
 </resources>

@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.zavaly.cache.dao.LoginCacheDao;
 import com.zavaly.cache.entities.LoginCache;
 
-@Database(entities = {LoginCache.class}, version = 1, exportSchema = false)
+@Database(entities = {LoginCache.class}, version = 2, exportSchema = false)
 
 public abstract class ZavalyRoomDatabase extends RoomDatabase {
 

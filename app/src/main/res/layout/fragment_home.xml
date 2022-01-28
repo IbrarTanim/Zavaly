@@ -19,7 +19,8 @@
             android:paddingStart="@dimen/ten"
             android:paddingTop="@dimen/three"
             android:paddingEnd="@dimen/ten"
-            android:paddingBottom="@dimen/three">
+            android:paddingBottom="@dimen/three"
+            android:visibility="gone">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/home_search"

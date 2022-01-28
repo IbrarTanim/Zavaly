@@ -9,4 +9,6 @@
     <string name="center_nav_seller">Seller</string>
     <string name="center_nav_i_shop">I-Shop</string>
     <string name="navigation_all_categories">All Categories</string>
+    <string name="warning_empty">Field Empty!</string>
+    <string name="warning_not_valid">Not valid!</string>
 </resources>

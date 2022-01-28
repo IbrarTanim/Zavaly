@@ -79,5 +79,8 @@ dependencies {
     def paging_version = "2.1.2"
     implementation "androidx.paging:paging-runtime:$paging_version"
 
+    //awesome validator
+    implementation 'com.basgeekball:awesome-validation:4.3'
+
 
 }

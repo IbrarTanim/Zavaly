@@ -6,6 +6,7 @@ import com.zavaly.models.addtocartresponse.AddToCartResponse;
 import com.zavaly.models.allcategorydetails.AllCategoryDetailsResponse;
 import com.zavaly.models.cartdelete.CartDeleteResponse;
 import com.zavaly.models.cartview.CartViewResponse;
+import com.zavaly.models.checkoutfinalstep.CheckoutConfirmResponse;
 import com.zavaly.models.checkoutresponse.CheckoutResponse;
 import com.zavaly.models.discountproducts.DiscountProductsResponse;
 import com.zavaly.models.login.LoginResponse;
@@ -103,6 +104,13 @@ public interface ApiInterface {
      */
     @POST("checkout")
     Call<CheckoutResponse> checkoutFromCart(@Query("guest_id") String guestID);
+
+    /**
+     * Checkout
+     * Final
+     */
+    @POST("checkout-confirm")
+    Call<CheckoutConfirmResponse> confirmCheckout(@QueryMap HashMap<String, String> params);
 
 
 }

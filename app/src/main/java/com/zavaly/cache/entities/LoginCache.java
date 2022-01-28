@@ -11,6 +11,9 @@ public class LoginCache {
     @ColumnInfo(name = "login_id")
     private int id;
 
+    @ColumnInfo(name = "user_id")
+    int userId;
+
     @ColumnInfo(name = "user_name")
     private String userName;
 
@@ -23,13 +26,13 @@ public class LoginCache {
     @ColumnInfo(name = "user_avater")
     private String userAvater;
 
-    public LoginCache(String userName, String userPhone, String userToken, String userAvater) {
+    public LoginCache(int userId, String userName, String userPhone, String userToken, String userAvater) {
+        this.userId = userId;
         this.userName = userName;
         this.userPhone = userPhone;
         this.userToken = userToken;
         this.userAvater = userAvater;
     }
-
 
     public int getId() {
         return id;
@@ -37,6 +40,14 @@ public class LoginCache {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -76,6 +87,7 @@ public class LoginCache {
     public String toString() {
         return "LoginCache{" +
                 "id=" + id +
+                ", userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", userPhone='" + userPhone + '\'' +
                 ", userToken='" + userToken + '\'' +

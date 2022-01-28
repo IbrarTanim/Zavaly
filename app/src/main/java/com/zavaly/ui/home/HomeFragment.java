@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,6 +22,7 @@ import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnima
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 import com.zavaly.R;
+import com.zavaly.activities.MainActivity;
 import com.zavaly.adapter.HomeAllCategoriesRecyclerAdapter;
 import com.zavaly.adapter.ImageSliderAdapter;
 import com.zavaly.adapter.MenuRecyclerAdapter;
@@ -95,7 +95,108 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        binding.homeSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        try {
+
+            ((MainActivity) getActivity()).advanceSearchBTN.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    String query = String.valueOf(((MainActivity) getActivity()).advanceSearchET.getText());
+
+                    if (query.isEmpty()) {
+                        if (binding.searchProductRv.getVisibility() == View.VISIBLE) {
+
+                            binding.searchProductRv.setVisibility(View.GONE);
+
+                        }
+
+                        if (binding.homeAllProductsRv.getVisibility() == View.GONE) {
+
+                            binding.homeAllProductsRv.setVisibility(View.VISIBLE);
+
+                        }
+
+                        if (binding.homeMenusRv.getVisibility() == View.GONE) {
+
+                            binding.homeMenusRv.setVisibility(View.VISIBLE);
+
+                        }
+
+                    } else {
+                        homeViewModel.getSearchProduct(context, query);
+                        homeViewModel.getSearchProductList().observe(getViewLifecycleOwner(), new Observer<PagedList<Product>>() {
+                            @Override
+                            public void onChanged(PagedList<Product> products) {
+
+                                if (products != null) {
+
+                                    Helper.showLoader(context, "");
+                                    SearchRecyclerAdapter adapter = new SearchRecyclerAdapter(context);
+                                    adapter.submitList(products);
+                                    GridLayoutManager manager = new GridLayoutManager(context, 2);
+
+                                    if (binding.searchProductRv.getVisibility() == View.GONE) {
+
+                                        binding.searchProductRv.setVisibility(View.VISIBLE);
+
+                                    }
+
+                                    if (binding.homeAllProductsRv.getVisibility() == View.VISIBLE) {
+
+                                        binding.homeAllProductsRv.setVisibility(View.GONE);
+
+                                    }
+
+                                    if (binding.homeMenusRv.getVisibility() == View.VISIBLE) {
+
+                                        binding.homeMenusRv.setVisibility(View.GONE);
+
+                                    }
+
+                                    binding.searchProductRv.setLayoutManager(manager);
+                                    binding.searchProductRv.setAdapter(adapter);
+
+                                    binding.searchProductRv.addOnItemTouchListener(new RecyclerTouchListener(context, binding.searchProductRv, new RecyclerTouchListener.ClickListener() {
+                                        @Override
+                                        public void onClick(View view, int position) {
+
+                                            int productId = products.get(position).getId();
+                                            Log.e("ProductId", String.valueOf(productId));
+                                            Navigation.findNavController(view).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationProductDetails(productId));
+
+                                        }
+
+                                        @Override
+                                        public void onLongClick(View view, int position) {
+
+                                        }
+                                    }));
+
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Helper.cancelLoader();
+                                        }
+                                    }, 1000);
+
+                                }
+
+
+                            }
+                        });
+                    }
+
+                }
+            });
+
+        } catch (NullPointerException ne) {
+
+            //SKIP
+
+        }
+
+
+        /*binding.homeSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (query.isEmpty()) {
@@ -189,7 +290,7 @@ public class HomeFragment extends Fragment {
 
                 return true;
             }
-        });
+        });*/
 
     }
 
