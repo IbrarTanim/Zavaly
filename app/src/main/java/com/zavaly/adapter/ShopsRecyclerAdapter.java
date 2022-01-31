@@ -17,7 +17,7 @@ import com.google.android.material.button.MaterialButton;
 import com.zavaly.R;
 import com.zavaly.constants.BaseApiConstant;
 import com.zavaly.models.shopsresponse.Datum;
-import com.zavaly.ui.shops.ShopsFragmentDirections;
+import com.zavaly.ui.mainui.shops.ShopsFragmentDirections;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

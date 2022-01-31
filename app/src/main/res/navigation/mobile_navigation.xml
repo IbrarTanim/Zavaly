@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.zavaly.ui.home.HomeFragment"
+        android:name="com.zavaly.ui.mainui.home.HomeFragment"
         android:label="Zavaly"
         tools:layout="@layout/fragment_home">
         <action
@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/navigation_cart"
-        android:name="com.zavaly.ui.cart.CartFragment"
+        android:name="com.zavaly.ui.cartui.cart.CartFragment"
         android:label="Cart"
         tools:layout="@layout/fragment_cart">
         <action
@@ -45,7 +45,7 @@
 
     <fragment
         android:id="@+id/navigation_account"
-        android:name="com.zavaly.ui.account.AccountFragment"
+        android:name="com.zavaly.ui.accountui.account.AccountFragment"
         android:label="@string/title_account"
         tools:layout="@layout/fragment_account">
         <action
@@ -58,7 +58,7 @@
 
     <fragment
         android:id="@+id/navigation_all_categories"
-        android:name="com.zavaly.ui.allcategories.AllCategoriesFragment"
+        android:name="com.zavaly.ui.mainui.allcategories.AllCategoriesFragment"
         android:label="@string/navigation_all_categories"
         tools:layout="@layout/all_categories_fragment">
         <action
@@ -68,7 +68,7 @@
 
     <fragment
         android:id="@+id/navigation_create_account"
-        android:name="com.zavaly.ui.createaccount.CreateAccountFragment"
+        android:name="com.zavaly.ui.accountui.createaccount.CreateAccountFragment"
         android:label="Register"
         tools:layout="@layout/create_account_fragment">
         <action
@@ -79,7 +79,7 @@
 
     <fragment
         android:id="@+id/navigation_forget_password"
-        android:name="com.zavaly.ui.forgetpassword.ForgetPasswordFragment"
+        android:name="com.zavaly.ui.accountui.forgetpassword.ForgetPasswordFragment"
         android:label="Recover"
         tools:layout="@layout/forget_password_fragment">
         <action
@@ -90,7 +90,7 @@
 
     <fragment
         android:id="@+id/navigation_view_category_products"
-        android:name="com.zavaly.ui.viewcategoryproduct.ViewCategoryProductFragment"
+        android:name="com.zavaly.ui.productui.viewcategoryproduct.ViewCategoryProductFragment"
         android:label="Products"
         tools:layout="@layout/view_category_product_fragment">
         <argument
@@ -107,7 +107,7 @@
 
     <fragment
         android:id="@+id/navigation_product_details"
-        android:name="com.zavaly.ui.productdetails.ProductDetailsFragment"
+        android:name="com.zavaly.ui.productui.productdetails.ProductDetailsFragment"
         android:label="Details"
         tools:layout="@layout/product_details_fragment">
         <argument
@@ -120,13 +120,13 @@
 
     <fragment
         android:id="@+id/navigation_discounts"
-        android:name="com.zavaly.ui.discount.DiscountFragment"
+        android:name="com.zavaly.ui.mainui.discount.DiscountFragment"
         android:label="Discounts"
         tools:layout="@layout/discount_fragment" />
 
     <fragment
         android:id="@+id/navigation_shops"
-        android:name="com.zavaly.ui.shops.ShopsFragment"
+        android:name="com.zavaly.ui.mainui.shops.ShopsFragment"
         android:label="Shops"
         tools:layout="@layout/shops_fragment">
         <action
@@ -142,7 +142,7 @@
 
     <fragment
         android:id="@+id/navigation_checkout"
-        android:name="com.zavaly.ui.checkout.CheckOutFragment"
+        android:name="com.zavaly.ui.cartui.checkout.CheckOutFragment"
         android:label="Checkout"
         tools:layout="@layout/check_out_fragment">
         <action
@@ -152,5 +152,11 @@
             android:id="@+id/action_navigation_checkout_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_orders"
+        android:name="com.zavaly.ui.ordersui.orders.OrdersFragment"
+        android:label="Orders"
+        tools:layout="@layout/orders_fragment" />
 
 </navigation>

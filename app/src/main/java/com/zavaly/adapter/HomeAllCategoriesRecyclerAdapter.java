@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.zavaly.R;
 import com.zavaly.enums.ZavalyEnums;
 import com.zavaly.models.allcategorydetails.Datum;
-import com.zavaly.ui.home.HomeFragmentDirections;
+import com.zavaly.ui.mainui.home.HomeFragmentDirections;
 import com.zavaly.utils.RecyclerTouchListener;
 
 public class HomeAllCategoriesRecyclerAdapter extends PagedListAdapter<Datum, HomeAllCategoriesRecyclerAdapter.HomeAllCategoryViewHolder> {

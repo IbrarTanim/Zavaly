@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/seventy"
-    tools:context=".ui.discount.DiscountFragment">
+    tools:context=".ui.mainui.discount.DiscountFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView

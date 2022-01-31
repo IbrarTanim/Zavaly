@@ -149,6 +149,8 @@ public class MainActivity extends CrashHandleActivity implements NavigationView.
 
         if (item.getItemId() == R.id.side_orders) {
 
+            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.navigation_orders);
 
         }
 
