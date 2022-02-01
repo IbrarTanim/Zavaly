@@ -1,4 +1,4 @@
-package com.zavaly.ui.ordersui.orders;
+package com.zavaly.ui.ordersui.ordersdetails;
 
 import android.content.Context;
 
@@ -9,7 +9,7 @@ import com.zavaly.apiutils.ApiInterface;
 import com.zavaly.cache.ZavalyRoomDatabase;
 import com.zavaly.cache.entities.LoginCache;
 import com.zavaly.constants.NetworkConstants;
-import com.zavaly.models.orders.OrdersResponse;
+import com.zavaly.models.ordersdetails.OrderDetailsResponse;
 import com.zavaly.utils.Helper;
 
 import java.util.List;
@@ -18,25 +18,24 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrdersRepository {
+public class OrdersDetailsRepository {
 
     private Context context;
     private ApiClient apiClient;
     private ApiInterface apiInterface;
     private MutableLiveData<Integer> errorLiveData;
-    private MutableLiveData<OrdersResponse> ordersLiveData;
+    private MutableLiveData<OrderDetailsResponse> responseLiveData;
 
-
-    public OrdersRepository(Context context) {
+    public OrdersDetailsRepository(Context context, String orderCode) {
         this.context = context;
         apiClient = new ApiClient(context);
         apiInterface = apiClient.getClient().create(ApiInterface.class);
         errorLiveData = new MutableLiveData<>();
-        ordersLiveData = new MutableLiveData<>();
-        getOrders();
+        responseLiveData = new MutableLiveData<>();
+        getDetailsResponse(orderCode);
     }
 
-    public void getOrders() {
+    private void getDetailsResponse(String orderCode) {
 
         List<LoginCache> loginCaches = ZavalyRoomDatabase.getINSTANCE(context).loginCacheDao().getLoggedInfo();
 
@@ -56,21 +55,21 @@ public class OrdersRepository {
 
                 if (Helper.isOnline(context)) {
 
-                    Call<OrdersResponse> call = apiInterface.getOrders(userId);
+                    Call<OrderDetailsResponse> call = apiInterface.getOrderDetails(userId, orderCode);
 
-                    call.enqueue(new Callback<OrdersResponse>() {
+                    call.enqueue(new Callback<OrderDetailsResponse>() {
                         @Override
-                        public void onResponse(Call<OrdersResponse> call, Response<OrdersResponse> response) {
+                        public void onResponse(Call<OrderDetailsResponse> call, Response<OrderDetailsResponse> response) {
 
                             if (response.code() == 200) {
 
 
                                 try {
 
-                                    if (response.body().getOrders() != null && !response.body().getOrders().isEmpty()) {
+                                    if (response.body().getSuccess() != null && !response.body().getSuccess().equals(true)) {
 
                                         errorLiveData.postValue(NetworkConstants.successRequest);
-                                        ordersLiveData.postValue(response.body());
+                                        responseLiveData.postValue(response.body());
 
                                     } else {
 
@@ -95,7 +94,7 @@ public class OrdersRepository {
                         }
 
                         @Override
-                        public void onFailure(Call<OrdersResponse> call, Throwable t) {
+                        public void onFailure(Call<OrderDetailsResponse> call, Throwable t) {
 
                             errorLiveData.postValue(NetworkConstants.serverConnectionFailed);
 
@@ -114,14 +113,13 @@ public class OrdersRepository {
 
         }
 
-
     }
 
     public MutableLiveData<Integer> getErrorLiveData() {
         return errorLiveData;
     }
 
-    public MutableLiveData<OrdersResponse> getOrdersLiveData() {
-        return ordersLiveData;
+    public MutableLiveData<OrderDetailsResponse> getResponseLiveData() {
+        return responseLiveData;
     }
 }

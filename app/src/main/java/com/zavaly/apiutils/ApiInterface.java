@@ -11,6 +11,7 @@ import com.zavaly.models.checkoutresponse.CheckoutResponse;
 import com.zavaly.models.discountproducts.DiscountProductsResponse;
 import com.zavaly.models.login.LoginResponse;
 import com.zavaly.models.orders.OrdersResponse;
+import com.zavaly.models.ordersdetails.OrderDetailsResponse;
 import com.zavaly.models.productdetails.ProductDetailsResponse;
 import com.zavaly.models.productupdate.ProductUpdateResponse;
 import com.zavaly.models.recoverpass.RecoverResponse;
@@ -120,6 +121,14 @@ public interface ApiInterface {
      */
     @POST("order-list")
     Call<OrdersResponse> getOrders(@Query("user_id") String userId);
+
+    /**
+     * Get
+     * Orders
+     * Details
+     */
+    @POST("order-details")
+    Call<OrderDetailsResponse> getOrderDetails(@Query("user_id") String userId, @Query("order_code") String orderCode);
 
 
 }

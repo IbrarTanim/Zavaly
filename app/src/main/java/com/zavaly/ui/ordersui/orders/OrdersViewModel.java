@@ -24,5 +24,4 @@ public class OrdersViewModel extends ViewModel {
     public MutableLiveData<OrdersResponse> getOrdersLiveData() {
         return ordersRepository.getOrdersLiveData();
     }
-
 }

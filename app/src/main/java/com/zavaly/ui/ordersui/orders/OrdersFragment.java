@@ -2,6 +2,8 @@ package com.zavaly.ui.ordersui.orders;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +16,25 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.zavaly.adapter.OrdersAdapter;
+import com.zavaly.constants.NetworkConstants;
 import com.zavaly.databinding.OrdersFragmentBinding;
 import com.zavaly.models.orders.OrdersResponse;
 import com.zavaly.utils.ChildClickListener;
+import com.zavaly.utils.Helper;
+
+import java.util.Objects;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
+import es.dmoral.toasty.Toasty;
 
 public class OrdersFragment extends Fragment {
 
     private OrdersViewModel mViewModel;
     private Context context;
     private OrdersFragmentBinding binding;
+    private Executor executor;
+    private Handler handler;
 
 
     @Override
@@ -33,46 +45,104 @@ public class OrdersFragment extends Fragment {
         mViewModel =
                 new ViewModelProvider(this).get(OrdersViewModel.class);
 
-        mViewModel.initViewModel(context);
-        mViewModel.getOrdersLiveData().observe(getViewLifecycleOwner(), new Observer<OrdersResponse>() {
+        /**
+         *
+         * set up executor
+         * handler
+         *
+         * */
+        executor = Executors.newFixedThreadPool(3);
+        handler = new Handler(Looper.getMainLooper());
+
+        Helper.showLoader(context, "");
+        executor.execute(new Runnable() {
             @Override
-            public void onChanged(OrdersResponse ordersResponse) {
+            public void run() {
 
-                if (ordersResponse != null) {
+                mViewModel.initViewModel(context);
 
-                    if (binding.ordersRv.getVisibility() == View.GONE) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
 
-                        binding.ordersRv.setVisibility(View.VISIBLE);
+                        mViewModel.getOrdersLiveData().observe(getViewLifecycleOwner(), new Observer<OrdersResponse>() {
+                            @Override
+                            public void onChanged(OrdersResponse ordersResponse) {
+
+                                if (ordersResponse != null) {
+
+                                    if (binding.ordersRv.getVisibility() == View.GONE) {
+
+                                        binding.ordersRv.setVisibility(View.VISIBLE);
+
+                                    }
+
+                                    OrdersAdapter adapter = new OrdersAdapter(context, ordersResponse.getOrders(), new ChildClickListener() {
+                                        @Override
+                                        public void onChildClick(View view, int position) {
+
+                                        }
+                                    });
+
+                                    LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+
+                                    binding.ordersRv.setLayoutManager(manager);
+                                    binding.ordersRv.setAdapter(adapter);
+                                    Helper.cancelLoader();
+
+
+                                }
+
+                            }
+                        });
+
+
+                        mViewModel.getErrorLiveData().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                            @Override
+                            public void onChanged(Integer integer) {
+
+                                if (Objects.equals(integer, NetworkConstants.noInternet)) {
+
+                                    if (binding.noDataIv.getVisibility() == View.GONE) {
+                                        binding.noDataIv.setVisibility(View.VISIBLE);
+                                    }
+                                    Toasty.warning(context, NetworkConstants.warningNoInternet).show();
+                                    Helper.cancelLoader();
+
+                                } else if (Objects.equals(integer, NetworkConstants.notAuthorized)) {
+
+                                    if (binding.noDataIv.getVisibility() == View.GONE) {
+                                        binding.noDataIv.setVisibility(View.VISIBLE);
+                                    }
+                                    Toasty.warning(context, NetworkConstants.warningNotAuthorized).show();
+                                    Helper.cancelLoader();
+
+                                } else if (Objects.equals(integer, NetworkConstants.serverConnectionFailed)) {
+
+                                    if (binding.noDataIv.getVisibility() == View.GONE) {
+                                        binding.noDataIv.setVisibility(View.VISIBLE);
+                                    }
+                                    Toasty.warning(context, NetworkConstants.warningSCF).show();
+                                    Helper.cancelLoader();
+
+                                } else if (Objects.equals(integer, NetworkConstants.noData)) {
+
+                                    if (binding.noDataIv.getVisibility() == View.GONE) {
+                                        binding.noDataIv.setVisibility(View.VISIBLE);
+                                    }
+                                    Toasty.warning(context, NetworkConstants.warningND).show();
+                                    Helper.cancelLoader();
+
+                                }
+
+                            }
+                        });
 
                     }
-
-                    OrdersAdapter adapter = new OrdersAdapter(context, ordersResponse.getOrders(), new ChildClickListener() {
-                        @Override
-                        public void onChildClick(View view, int position) {
-
-                        }
-                    });
-
-                    LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-
-                    binding.ordersRv.setLayoutManager(manager);
-                    binding.ordersRv.setAdapter(adapter);
-
-
-                } else {
-
-                    //skip
-                    if (binding.noDataIv.getVisibility() == View.GONE) {
-
-                        binding.noDataIv.setVisibility(View.VISIBLE);
-
-                    }
-
-                }
+                });
 
             }
         });
-
 
         return binding.getRoot();
     }

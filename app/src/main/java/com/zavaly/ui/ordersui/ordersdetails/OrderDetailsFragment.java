@@ -9,16 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.zavaly.R;
+import com.zavaly.databinding.OrderDetailsFragmentBinding;
 
 public class OrderDetailsFragment extends Fragment {
 
-    private OrderDetailsViewModel mViewModel;
+    private OrderDetailsFragmentBinding binding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.order_details_fragment, container, false);
+
+        binding = OrderDetailsFragmentBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
 
