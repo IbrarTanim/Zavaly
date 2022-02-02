@@ -66,7 +66,7 @@ public class OrdersDetailsRepository {
 
                                 try {
 
-                                    if (response.body().getSuccess() != null && !response.body().getSuccess().equals(true)) {
+                                    if (response.body().getSuccess()) {
 
                                         errorLiveData.postValue(NetworkConstants.successRequest);
                                         responseLiveData.postValue(response.body());

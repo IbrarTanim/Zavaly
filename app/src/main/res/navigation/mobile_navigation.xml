@@ -157,6 +157,20 @@
         android:id="@+id/navigation_orders"
         android:name="com.zavaly.ui.ordersui.orders.OrdersFragment"
         android:label="Orders"
-        tools:layout="@layout/orders_fragment" />
+        tools:layout="@layout/orders_fragment">
+        <action
+            android:id="@+id/action_navigation_orders_to_navigation_order_details"
+            app:destination="@id/navigation_order_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_order_details"
+        android:name="com.zavaly.ui.ordersui.ordersdetails.OrderDetailsFragment"
+        android:label="Order Details"
+        tools:layout="@layout/order_details_fragment">
+        <argument
+            android:name="orderCode"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
