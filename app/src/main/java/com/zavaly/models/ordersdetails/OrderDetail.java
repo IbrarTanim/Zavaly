@@ -41,25 +41,25 @@ public class OrderDetail implements Parcelable {
     private String color;
     @SerializedName("size")
     @Expose
-    private Object size;
+    private String size;
     @SerializedName("quantity")
     @Expose
     private Integer quantity;
     @SerializedName("price")
     @Expose
-    private Integer price;
+    private Double price;
     @SerializedName("discount")
     @Expose
-    private Integer discount;
+    private Double discount;
     @SerializedName("subtotal")
     @Expose
-    private Integer subtotal;
+    private Double subtotal;
     @SerializedName("total_discount")
     @Expose
-    private Integer totalDiscount;
+    private Double totalDiscount;
     @SerializedName("total")
     @Expose
-    private Integer total;
+    private Double total;
     @SerializedName("product_for")
     @Expose
     private String productFor;
@@ -76,13 +76,13 @@ public class OrderDetail implements Parcelable {
         this.userId = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.product = ((String) in.readValue((String.class.getClassLoader())));
         this.color = ((String) in.readValue((String.class.getClassLoader())));
-        this.size = ((Object) in.readValue((Object.class.getClassLoader())));
+        this.size = ((String) in.readValue((String.class.getClassLoader())));
         this.quantity = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.price = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.discount = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.subtotal = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.totalDiscount = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.total = ((Integer) in.readValue((Integer.class.getClassLoader())));
+        this.price = ((Double) in.readValue((Double.class.getClassLoader())));
+        this.discount = ((Double) in.readValue((Double.class.getClassLoader())));
+        this.subtotal = ((Double) in.readValue((Double.class.getClassLoader())));
+        this.totalDiscount = ((Double) in.readValue((Double.class.getClassLoader())));
+        this.total = ((Double) in.readValue((Double.class.getClassLoader())));
         this.productFor = ((String) in.readValue((String.class.getClassLoader())));
         this.createdAt = ((String) in.readValue((String.class.getClassLoader())));
         this.updatedAt = ((String) in.readValue((String.class.getClassLoader())));
@@ -131,11 +131,11 @@ public class OrderDetail implements Parcelable {
         this.color = color;
     }
 
-    public Object getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(Object size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
@@ -147,43 +147,43 @@ public class OrderDetail implements Parcelable {
         this.quantity = quantity;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public Integer getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Integer discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 
-    public Integer getSubtotal() {
+    public Double getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(Integer subtotal) {
+    public void setSubtotal(Double subtotal) {
         this.subtotal = subtotal;
     }
 
-    public Integer getTotalDiscount() {
+    public Double getTotalDiscount() {
         return totalDiscount;
     }
 
-    public void setTotalDiscount(Integer totalDiscount) {
+    public void setTotalDiscount(Double totalDiscount) {
         this.totalDiscount = totalDiscount;
     }
 
-    public Integer getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 

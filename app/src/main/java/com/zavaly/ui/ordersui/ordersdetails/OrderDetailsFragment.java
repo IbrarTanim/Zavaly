@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +14,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.zavaly.adapter.OrderDetailsAdapter;
 import com.zavaly.constants.NetworkConstants;
 import com.zavaly.databinding.OrderDetailsFragmentBinding;
 import com.zavaly.models.ordersdetails.OrderDetailsResponse;
 import com.zavaly.utils.Helper;
 
 import java.util.Objects;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import es.dmoral.toasty.Toasty;
 
@@ -31,9 +33,8 @@ public class OrderDetailsFragment extends Fragment {
     private OrderDetailsFragmentBinding binding;
     private OrderDetailsViewModel viewModel;
     private Context context;
-    private Executor executor;
+    private ExecutorService executor;
     private Handler handler;
-    private Future future;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -58,9 +59,17 @@ public class OrderDetailsFragment extends Fragment {
 
                 viewModel.initViewModel(context, orderCode);
 
+
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+
+                        if (executor.isShutdown()) {
+                            Log.e("Thread", "run: shutdown");
+                        } else {
+                            executor.shutdown();
+                            Log.e("Thread", "run: not shutdown");
+                        }
 
                         viewModel.getResponseLiveData().observe(getViewLifecycleOwner(), new Observer<OrderDetailsResponse>() {
                             @Override
@@ -95,6 +104,15 @@ public class OrderDetailsFragment extends Fragment {
                                         binding.total.setText(String.valueOf(orderDetailsResponse.getOrder().getTotal()));
                                     } catch (Exception e) {
                                         //skip
+                                    }
+
+                                    if (orderDetailsResponse.getOrderDetails() != null || !orderDetailsResponse.getOrderDetails().isEmpty()) {
+
+                                        OrderDetailsAdapter adapter = new OrderDetailsAdapter(context, orderDetailsResponse.getOrderDetails());
+                                        LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+                                        binding.detailsProductRv.setLayoutManager(manager);
+                                        binding.detailsProductRv.setAdapter(adapter);
+
                                     }
 
                                 }
@@ -162,5 +180,12 @@ public class OrderDetailsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+
+        if (executor.isShutdown()) {
+            Log.e("Thread", "run: shutdown");
+        } else {
+            executor.shutdown();
+            Log.e("Thread", "run: not shutdown");
+        }
     }
 }

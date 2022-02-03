@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ import com.zavaly.utils.ChildClickListener;
 import com.zavaly.utils.Helper;
 
 import java.util.Objects;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import es.dmoral.toasty.Toasty;
@@ -34,7 +35,7 @@ public class OrdersFragment extends Fragment {
     private OrdersViewModel mViewModel;
     private Context context;
     private OrdersFragmentBinding binding;
-    private Executor executor;
+    private ExecutorService executor;
     private Handler handler;
 
 
@@ -65,6 +66,13 @@ public class OrdersFragment extends Fragment {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+
+                        if (executor.isShutdown()) {
+                            Log.e("Thread", "run: shutdown");
+                        } else {
+                            executor.shutdown();
+                            Log.e("Thread", "run: not shutdown");
+                        }
 
                         mViewModel.getOrdersLiveData().observe(getViewLifecycleOwner(), new Observer<OrdersResponse>() {
                             @Override
@@ -161,5 +169,11 @@ public class OrdersFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        if (executor.isShutdown()) {
+            Log.e("Thread", "run: shutdown");
+        } else {
+            executor.shutdown();
+            Log.e("Thread", "run: not shutdown");
+        }
     }
 }
